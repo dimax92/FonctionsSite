@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="index, follow"/>
+        <meta name="description" content="Vous souhaitez avoir une vitrine en ligne pour les produits que vous souhaitez vendre. Mais vous ne voulez pas dépensez des sommes astronomiques pour la création d'un site web ou alors payer des commissions faramineuses aux géants du e-commerce. Alors il vous suffit de remplir ce formulaire et c'est tout. Votre produit seras en ligne et vos clients n'auront qu'a vous contacter pour pouvoir profiter de vos super produits. Vous pouvez vendre ce que vous voulez, voiture, vêtements, logements, jeux videos, smartphones, ordinateurs, électroménager, pièces automobiles, cosmétiques et plein d'autres choses."/>
+        <title>Mettez en ligne tous les produits que vous voulez</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+        <link rel="stylesheet" href="formulaire.css">
+    </head>
+    <body>
+        <header></header>
+        <main>
+            <h1>Formulaire d'annonce en ligne</h1>
+            <form id="formulaire" method="post" enctype='multipart/form-data'>
+                <label for='inputnom' class='labelnom'>Nom du produit</label>
+                <input name="inputnom" class="inputFormulaire" id="inputnom" type="text" required="required">
+                <label for='inputmarque' class='labelmarque'>Marque du produit</label>
+                <input name="inputmarque" class="inputFormulaire" id="inputmarque" type="text" required="required">
+                <label for='images' id='labelimages'>Choisir une video(max:100mb)</label>
+                <input name="inputimages" id='images' type="file" required="required">
+                <label for='inputprix' class='labelprix'>Prix du produit</label>
+                <input name="inputprix" class="inputFormulaire" id="inputprix" type="number" required="required">
+                <label for='inputdevise' class='labeldevise'>Devise</label>
+                <input name="inputdevise" class="inputFormulaire" id="inputdevise" type="text" required="required">
+                <label for='inputcaracteristique' class='labelcaracteristique'>Description du produit</label>
+                <textarea name="inputcaracteristique" id="inputcaracteristique" required="required"></textarea>
+                <label for='inputquantite' class='labelquantite'>Quantité</label>
+                <input name="inputquantite" class="inputFormulaire" id="inputquantite" type="number" required="required">
+                <label for='inputcategorie' class='labelcategorie'>Type de produit(ordinateur, pantalon, ...)</label>
+                <input name="inputcategorie" class="inputFormulaire" id="inputcategorie" type="text" required="required">
+                <label for='inputcondition' class='labelcondition'>Condition(neuf, occasion, ...)</label>
+                <input id="inputcondition" class="inputFormulaire" type='text' name="condition" required="required">
+                <label for='inputcoordonnees' class='labelcoordonnees'>Coordonnées de contact(numéro de téléphone, compte facebook, ...)</label>
+                <input id="inputcoordonnees" class="inputFormulaire" type='text' name='coordonnees' required='required'>
+                <label for='email' class='labelemail'>Email</label>
+                <input name='email' id='email' class="inputFormulaire" type='email' required="required">
+                <label for='motdepasse' class='labelmotdepasse'>Mot de passe(1 majuscule, 1 minuscule, 1 chiffre, 1 caractere speciale, 8 caracteres minimum)</label>
+                <input name='motdepasse' class="inputFormulaire" id='motdepasse' type="password" required="required">
+                <button name="buttonenvoyer" id="buttonenvoyer" type='submit'>Mettre en ligne</button>
+            </form>
+        </main>
+        <footer></footer>
+    </body>
+</html>

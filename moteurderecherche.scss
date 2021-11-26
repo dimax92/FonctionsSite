@@ -1,0 +1,72 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    form {
+        width: 90%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 50px;
+        max-width: 500px;
+        .inputrecherche {
+            width: 70%;
+            height: 100%;
+            border-radius: 10px 0px 0px 10px;
+        }
+        .buttonrecherche {
+            width: 30%;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 0px 10px 10px 0px;
+            label {
+                font-weight: bold;
+            }
+        }
+    }
+    section {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        a {
+            width: 90%;
+            text-decoration: none;
+            border: solid 0.2px black;
+            border-radius: 10px;
+            margin: 10px;
+            display: flex;
+            height: 300px;
+            flex-direction: column;
+            align-items: center;
+            max-width: 300px;
+            h2 {
+                margin: 5px;
+                color: black;
+            }
+            .divVideo {
+                width: 100%;
+                height: 75%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                video {
+                    height: 80%;
+                }
+                .controles {
+                    height: 20%;
+                    display: flex;
+                    align-items: center;
+                    .fas {
+                        color: blue;
+                    }
+                }
+            }
+            .pprix {
+                margin: 5px;
+                color: black;
+            }
+        }
+    }
+}

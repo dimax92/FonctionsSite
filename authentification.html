@@ -5,16 +5,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Authentification</title>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+        <link rel="stylesheet" href="authentification.css">
     </head>
     <body>
-        <header></header>
+        <header>
+            <img src="Logo.png" alt="Logo">
+            <nav>
+                <ul>
+                    <li><a href="inscription.html">S'inscrire</a></li>
+                    <li><a href="moteurderecherche.html">Rechercher</a></li>
+                    <li><a href="formulaire.html">Deposer une annonce</a></li>
+                </ul>
+            </nav>
+        </header>
         <main>
             <h1>Authentification produit</h1>
             <form id='formulaire' method='post'>
                 <label for="email" id="labelemail">Email</label>
-                <input id='email' name='inputemail' type='text' placeholder='Email'>
+                <input id='email' class="inputConnexion" name='inputemail' type='text' placeholder='Email'>
                 <label for="motdepasse" id="labelmotdepasse">Mot de passe</label>
-                <input id='motdepasse' name='inputmotdepasse' type='password' placeholder='Mot de passe'>
+                <input id='motdepasse' class="inputConnexion" name='inputmotdepasse' type='password' placeholder='Mot de passe'>
                 <button id='seconnecter' name='seconnecter' type='submit'>Se connecter</button>
             </form>
         </main>

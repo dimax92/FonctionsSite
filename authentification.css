@@ -35,7 +35,7 @@ main form label {
   font-size: 110%;
 }
 
-main form .inputInscription {
+main form .inputConnexion {
   width: 100%;
   max-width: 300px;
   height: 25px;
@@ -52,4 +52,4 @@ main form button {
   font-weight: bold;
   font-size: 110%;
 }
-/*# sourceMappingURL=inscription.css.map */
+/*# sourceMappingURL=authentification.css.map */

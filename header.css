@@ -20,6 +20,7 @@ header {
 
 header img {
   width: 30%;
+  max-width: 200px;
 }
 
 header nav {

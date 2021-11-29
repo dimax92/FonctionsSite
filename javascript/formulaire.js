@@ -1,5 +1,7 @@
 let main=document.querySelector("main");
 let formulaire=document.querySelector("form");
+let labelimages=document.querySelector("#labelimages");
+let video=document.querySelector("#images");
 let boutonEnvoie=document.querySelector("#buttonenvoyer");
 
 function envoiDonnees(lien){
@@ -71,4 +73,11 @@ function validationFormulaire(){
 boutonEnvoie.addEventListener("click", ()=>{
         envoiDonnees("php/formulaire.php");
 });
-formulaire.addEventListener("submit",(e)=>{e.preventDefault();});
+
+formulaire.addEventListener("submit",(e)=>{
+    e.preventDefault();
+});
+
+video.addEventListener('input',()=>{
+    labelimages.innerText=video.value;
+});

@@ -18,19 +18,10 @@ main p {
 }
 
 main .divVideo {
-  width: 90%;
-  max-width: 250px;
-}
-
-main .divVideo video {
-  width: 100%;
-}
-
-main .divVideo .controles {
-  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: 90%;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -40,7 +31,41 @@ main .divVideo .controles {
           align-items: center;
 }
 
-main .divVideo .inputRange {
+main .divVideo video {
+  width: 100%;
+  max-width: 250px;
+  cursor: pointer;
+}
+
+main .divVideo .controles {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap-reverse;
+      flex-wrap: wrap-reverse;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+main .divVideo .controles .fas {
+  color: blue;
+  cursor: pointer;
+}
+
+main .divVideo .controles p {
+  margin: 2px 0px;
+}
+
+main .divVideo .controles .inputRange {
   width: 100%;
 }
 /*# sourceMappingURL=contenu.css.map */

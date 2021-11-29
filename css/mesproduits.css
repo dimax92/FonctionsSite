@@ -1,0 +1,113 @@
+@import url("header.css");
+main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main section {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+main section .divProduit {
+  width: 85%;
+  padding: 5px;
+  border: solid 0.1px #0000001f;
+  -webkit-box-shadow: 0px 0px 4px #00000036;
+          box-shadow: 0px 0px 4px #00000036;
+  border-radius: 10px;
+  margin: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 350px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 300px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+main section .divProduit h2 {
+  margin: 5px;
+  color: black;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+main section .divProduit video {
+  height: 60%;
+  width: 100%;
+}
+
+main section .divProduit .pprix {
+  margin: 5px;
+  color: black;
+}
+
+main section .divProduit .divModifier {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 90%;
+}
+
+main section .divProduit .divModifier a {
+  text-decoration: none;
+  width: 40%;
+}
+
+main section .divProduit .divModifier a .buttonModifier {
+  width: 100%;
+  border-radius: 10px;
+  background: green;
+  color: white;
+  font-weight: bold;
+  height: 30px;
+  cursor: pointer;
+}
+
+main section .divProduit .divModifier a .buttonSupprimer {
+  width: 100%;
+  border-radius: 10px;
+  background: red;
+  color: white;
+  font-weight: bold;
+  height: 30px;
+  cursor: pointer;
+}
+/*# sourceMappingURL=mesproduits.css.map */

@@ -1,0 +1,82 @@
+@import url("header.css");
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    form {
+        width: 90%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 50px;
+        max-width: 500px;
+        .inputrecherche {
+            width: 70%;
+            height: 100%;
+            border-radius: 10px 0px 0px 10px;
+        }
+        .buttonrecherche {
+            width: 30%;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 0px 10px 10px 0px;
+            label {
+                font-weight: bold;
+            }
+        }
+    }
+    .divFiltres {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        margin: 10px 0px;
+        flex-wrap: wrap;
+        button {
+            width: 120px;
+            height: 30px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+        }
+    }
+    section {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        a {
+            width: 85%;
+            padding: 5px;
+            text-decoration: none;
+            border: solid 0.1px #0000001f;
+            box-shadow: 0px 0px 4px #00000036;
+            border-radius: 10px;
+            margin: 10px;
+            display: flex;
+            height: 300px;
+            flex-direction: column;
+            align-items: center;
+            max-width: 300px;
+            justify-content: space-between;
+            h2 {
+                margin: 5px;
+                color: black;
+                width: 100%;
+                text-align: center;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+            video {
+                height: 60%;
+                width: 100%;
+            }
+            .pprix {
+                margin: 5px;
+                color: black;
+            }
+        }
+    }
+}

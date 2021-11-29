@@ -5,16 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Inscription</title>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
-        <link rel="stylesheet" href="inscription.css">
+        <link rel="stylesheet" href="css/inscription.css">
     </head>
     <body>
         <header>
-            <img src="Logo.png" alt="Logo du site">
+            <img src="Images/Logo.png" alt="Logo du site">
             <nav>
                 <ul>
                     <li><a href="moteurderecherche.html">Rechercher</a></li>
                     <li><a href="authentification.html">S'authentifier</a></li>
-                    <li><a href="formulaire.html">Deposer une annonce</a></li>
                 </ul>
             </nav>
         </header>
@@ -25,8 +24,10 @@
                 <input id='email' class="inputInscription" name='inputemail' type='text' placeholder='Email'>
                 <label for="motdepasse" id="labelmotdepasse">Mot de passe</label>
                 <input id='motdepasse' class="inputInscription" name='inputmotdepasse' type='password' placeholder='Mot de passe'>
-                <button id='seconnecter' name='seconnecter' type='submit'>S'inscrire</button>
+                <button id='inscription' name='inscription' type='submit'>S'inscrire</button>
             </form>
         </main>
+        <script src="javascript/connexion.js"></script>
+        <script src="javascript/inscription.js"></script>
     </body>
 </html>

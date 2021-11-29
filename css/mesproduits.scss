@@ -1,0 +1,72 @@
+@import url("header.css");
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    section {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        .divProduit {
+            width: 85%;
+            padding: 5px;
+            border: solid 0.1px #0000001f;
+            box-shadow: 0px 0px 4px #00000036;
+            border-radius: 10px;
+            margin: 10px;
+            display: flex;
+            height: 350px;
+            flex-direction: column;
+            align-items: center;
+            max-width: 300px;
+            justify-content: space-between;
+            h2 {
+                margin: 5px;
+                color: black;
+                width: 100%;
+                text-align: center;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+            video {
+                height: 60%;
+                width: 100%;
+            }
+            .pprix {
+                margin: 5px;
+                color: black;
+            }
+            .divModifier {
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+                width: 90%;
+                a{
+                    text-decoration: none;
+                    width: 40%;
+                    .buttonModifier{
+                        width: 100%;
+                        border-radius: 10px;
+                        background: green;
+                        color: white;
+                        font-weight: bold;
+                        height: 30px;
+                        cursor: pointer;
+                    }
+                    .buttonSupprimer{
+                        width: 100%;
+                        border-radius: 10px;
+                        background: red;
+                        color: white;
+                        font-weight: bold;
+                        height: 30px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}

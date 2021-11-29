@@ -1,0 +1,51 @@
+@import url("header.css");
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h1 {
+        text-align: center;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        label {
+            font-weight: bold;
+            font-size: 110%;
+        }
+        #labelimages {
+            text-decoration: underline;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .inputFormulaire {
+            width: 100%;
+            max-width: 500px;
+            height: 25px;
+            border-radius: 10px;
+            margin: 10px 0px;
+        }
+        textarea {
+            height: 200px;
+            resize: none;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            margin: 10px 0px;
+        }
+        #images {
+            display: none;
+        }
+        button {
+            width: 80%;
+            max-width: 240px;
+            padding: 7px;
+            margin: 10px 0px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 110%;
+        }
+    }
+}

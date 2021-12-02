@@ -1,3 +1,4 @@
+let main=document.querySelector("main");
 let section=document.querySelector("main section");
 
 function recevoirDonnees(lien){
@@ -5,11 +6,12 @@ function recevoirDonnees(lien){
     xhr.onloadend=function(){
         let resultat=this.response.split(" didi: ");
         for(i=1; i<=resultat.length-1; i++){
+            let valIdProduit=JSON.parse(resultat[i]).idproduit;
             let valNom=JSON.parse(resultat[i]).nom;
             let valVideo=JSON.parse(resultat[i]).video;
             let valPrix=JSON.parse(resultat[i]).prix;
             let valDevise=JSON.parse(resultat[i]).devise;
-            creationProduit(valNom, valVideo, valPrix, valDevise);
+            creationProduit(valIdProduit, valNom, valVideo, valPrix, valDevise);
         };
     };
     xhr.open("GET", lien);
@@ -17,7 +19,7 @@ function recevoirDonnees(lien){
 };
 recevoirDonnees("php/mesproduits.php");
 
-function creationProduit(valnom, valvideo, valprix, valdevise){
+function creationProduit(valIdProduit, valnom, valvideo, valprix, valdevise){
     let divProduit=document.createElement("div");
     divProduit.className="divProduit";
     section.appendChild(divProduit);
@@ -37,7 +39,7 @@ function creationProduit(valnom, valvideo, valprix, valdevise){
     divModifier.className="divModifier";
     divProduit.appendChild(divModifier);
     let lienModifier=document.createElement("a");
-    lienModifier.href="#";
+    lienModifier.href="modifier.html?id="+valIdProduit;
     divModifier.appendChild(lienModifier);
     let buttonModifier=document.createElement("button");
     buttonModifier.className="buttonModifier";
@@ -49,5 +51,71 @@ function creationProduit(valnom, valvideo, valprix, valdevise){
     let buttonSupprimer=document.createElement("button");
     buttonSupprimer.className="buttonSupprimer";
     buttonSupprimer.textContent="Supprimer";
+    buttonSupprimer.addEventListener("click",()=>{
+        supprimer("php/supprimer.php", valIdProduit);
+    })
     lienSupprimer.appendChild(buttonSupprimer);
-}
+};
+
+function supprimer(lien, idproduit){
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", lien);
+    xhr.onloadend = function() {
+        if(this.response==="Produit supprime"){
+            validationFormulaire();
+        }else{
+            nonValidationFormulaire();
+        }
+    }
+    let data = new FormData();
+    data.append("idproduit", idproduit);
+    xhr.send(data);
+};
+
+function validation(){
+    let validation= document.createElement("p");
+    validation.className="validationFormulaire";
+    let contenuvalidation = document.createTextNode('Produit supprime');
+    validation.appendChild(contenuvalidation);
+    main.insertBefore(validation, section);
+    main.children[1].style.color="green";
+    main.children[1].style.fontSize="2em";
+    main.children[1].style.margin="0em";
+    main.children[1].style.fontWeight="bold";
+};
+
+function nonValidation(){
+    let validation= document.createElement("p");
+    validation.className="nonValidationFormulaire";
+    let contenuvalidation = document.createTextNode('Echec Suppression');
+    validation.appendChild(contenuvalidation);
+    main.insertBefore(validation, section);
+    main.children[1].style.color="red";
+    main.children[1].style.fontSize="2em";
+    main.children[1].style.margin="0em";
+    main.children[1].style.fontWeight="bold";
+};
+
+function nonValidationFormulaire(){
+    if(document.querySelector(".validationFormulaire")){
+        let validationFormulaire=document.querySelector(".validationFormulaire");
+        main.removeChild(validationFormulaire);
+        nonValidation();
+    }else{
+        if(!document.querySelector(".nonValidationFormulaire")){
+            nonValidation();
+        }
+    }
+};
+
+function validationFormulaire(){
+    if(document.querySelector(".nonValidationFormulaire")){
+        let nonValidationFormulaire=document.querySelector(".nonValidationFormulaire");
+        main.removeChild(nonValidationFormulaire);
+        validation();
+      }else{
+          if(!document.querySelector(".validationFormulaire")){
+              validation();
+          }
+    }
+};

@@ -16,7 +16,7 @@ function recuperationContenu(lien){
         main.children[10].textContent=JSON.parse(resultat[1]).quantite;
         main.children[12].textContent=JSON.parse(resultat[1]).types;
         main.children[14].textContent=JSON.parse(resultat[1]).conditions;
-        main.children[16].textContent=JSON.parse(resultat[1]).devise;
+        main.children[16].textContent=JSON.parse(resultat[1]).coordonnees;
     };
     let data = new FormData();
     data.append("idproduit", window.location.search.split("=")[1]);

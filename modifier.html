@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Nom du produit</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/modifier.css">
+    </head>
+    <body>
+        <header>
+            <img src="Images/Logo.png" alt="Logo du site">
+            <nav>
+                <ul>
+                    <li><a href="inscription.html">S'inscrire</a></li>
+                    <li><a href="authentification.html">S'authentifier</a></li>
+                    <li><a href="moteurderecherche.html">Rechercher</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <h1>Modification produit</h1>
+            <form id="formulaire" method="post" enctype='multipart/form-data'>
+                <label for='inputnom' class='labelnom'>Nom du produit</label>
+                <input name="inputnom" class="inputFormulaire" id="inputnom" type="text" required="required">
+                <label for='inputmarque' class='labelmarque'>Marque du produit</label>
+                <input name="inputmarque" class="inputFormulaire" id="inputmarque" type="text" required="required">
+                <label for='images' id='labelimages'>Choisir une video(max:100mb)</label>
+                <input name="inputimages" id='images' type="file" required="required">
+                <label for='inputprix' class='labelprix'>Prix du produit</label>
+                <input name="inputprix" class="inputFormulaire" id="inputprix" type="number" required="required">
+                <label for='inputdevise' class='labeldevise'>Devise</label>
+                <input name="inputdevise" class="inputFormulaire" id="inputdevise" type="text" required="required">
+                <label for='inputcaracteristique' class='labelcaracteristique'>Description du produit</label>
+                <textarea name="inputcaracteristique" id="inputcaracteristique" required="required"></textarea>
+                <label for='inputquantite' class='labelquantite'>Quantité</label>
+                <input name="inputquantite" class="inputFormulaire" id="inputquantite" type="number" required="required">
+                <label for='inputcategorie' class='labelcategorie'>Type de produit(ordinateur, pantalon, ...)</label>
+                <input name="inputcategorie" class="inputFormulaire" id="inputcategorie" type="text" required="required">
+                <label for='inputcondition' class='labelcondition'>Condition(neuf, occasion, ...)</label>
+                <input id="inputcondition" class="inputFormulaire" type='text' name="condition" required="required">
+                <label for='inputcoordonnees' class='labelcoordonnees'>Coordonnées de contact(numéro de téléphone, compte facebook, ...)</label>
+                <input id="inputcoordonnees" class="inputFormulaire" type='text' name='coordonnees' required='required'>
+                <button name="buttonenvoyer" id="buttonenvoyer" type='submit'>Modifier</button>
+            </form>
+        </main>
+        <footer></footer>
+        <script src="javascript/connexion.js"></script>
+        <script src="javascript/modifier.js"></script>
+    </body>
+</html>

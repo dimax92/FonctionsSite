@@ -40,7 +40,7 @@ while($resultat=mysqli_fetch_object($requetesql)){
     $quantite=json_encode($resultat->quantite);
     $types=json_encode($resultat->types);
     $conditions=json_encode($resultat->conditions);
-echo " didi: { $paramidproduit: $idproduit, 
+    echo " didi: { $paramidproduit: $idproduit, 
     $paramnom: $nom, 
     $parammarque: $marque, 
     $paramvideo: $video, 

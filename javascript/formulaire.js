@@ -93,23 +93,23 @@ function validationIndividuelle(contenu, identifiant, position){
 };
 
 function validationComplete(donnees){
-    validationTotal(donnees, 1, "Nom incorrect", ".nomIncorrect", nom);
-    validationTotal(donnees, 2, "Marque incorrect", ".marqueIncorrect", marque);
-    validationTotal(donnees, 3, "Type fichier incorrect", ".fichierIncorrect", video);
-    validationTotal(donnees, 4, "Fichier trop lourd", ".fichierLourd", video);
-    validationTotal(donnees, 5, "Prix incorrect", ".prixIncorrect", prix);
-    validationTotal(donnees, 6, "Devise incorrect", ".deviseIncorrect", devise);
-    validationTotal(donnees, 7, "Description incorrect", ".descriptionIncorrect", description);
-    validationTotal(donnees, 8, "Quantite incorrect", ".quantiteIncorrect", quantite);
-    validationTotal(donnees, 9, "Categorie incorrect", ".categorieIncorrect", type);
-    validationTotal(donnees, 10, "Condition incorrect", ".conditionIncorrect", condition);
-    validationTotal(donnees, 11, "Coordonnees incorrect", ".coordonneesIncorrect", coordonnees);
+    validationTotal(donnees, 1, "Nom incorrect", "nomIncorrect", ".nomIncorrect", nom);
+    validationTotal(donnees, 2, "Marque incorrect", "marqueIncorrect", ".marqueIncorrect", marque);
+    validationTotal(donnees, 3, "Type fichier incorrect", "fichierIncorrect", ".fichierIncorrect", video);
+    validationTotal(donnees, 4, "Fichier trop lourd", "fichierLourd", ".fichierLourd", video);
+    validationTotal(donnees, 5, "Prix incorrect", "prixIncorrect", ".prixIncorrect", prix);
+    validationTotal(donnees, 6, "Devise incorrect", "deviseIncorrect", ".deviseIncorrect", devise);
+    validationTotal(donnees, 7, "Description incorrect", "descriptionIncorrect", ".descriptionIncorrect", description);
+    validationTotal(donnees, 8, "Quantite incorrect", "quantiteIncorrect", ".quantiteIncorrect", quantite);
+    validationTotal(donnees, 9, "Categorie incorrect", "categorieIncorrect", ".categorieIncorrect", type);
+    validationTotal(donnees, 10, "Condition incorrect", "conditionIncorrect", ".conditionIncorrect", condition);
+    validationTotal(donnees, 11, "Coordonnees incorrect", "coordonneesIncorrect", ".coordonneesIncorrect", coordonnees);
 };
 
-function validationTotal(donnees, numero, resultat, identifiant, elementInsert){
+function validationTotal(donnees, numero, resultat, creationId, identifiant, elementInsert){
     if(donnees[numero]===resultat){
         if(!document.querySelector(identifiant)){
-            validationIndividuelle(donnees[numero], resultat, elementInsert);
+            validationIndividuelle(donnees[numero], creationId, elementInsert);
         }
     }else{
         if(document.querySelector(identifiant)){

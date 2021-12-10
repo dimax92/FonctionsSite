@@ -50,7 +50,7 @@ buttonDecroissant.addEventListener("click", ()=>{
 
 function creationProduit(valid, valnom, valvideo, valprix, valdevise){
     let lien=document.createElement("a");
-    lien.href="contenu.html?id="+valid;
+    lien.href=remplacementEspacesTirets(valnom)+"-"+valid;
     section.appendChild(lien);
     let titre=document.createElement("h2");
     titre.className="pnom";
@@ -147,4 +147,15 @@ function ressemblanceMots(valeur, valeurRetour){
         }
     };
     return valeurTotal/valeur.length;
-}
+};
+
+function remplacementEspacesTirets(espaces){
+    let espacesSplit=espaces.split(" ");
+    let nouveauEspaces=[];
+    for(i=0; i<=espacesSplit.length-1; i++){
+        if(espacesSplit[i]!==""){
+            nouveauEspaces.push(espacesSplit[i]);
+        }
+    };
+    return nouveauEspaces.join("-");
+};

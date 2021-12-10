@@ -19,7 +19,7 @@ function recuperationContenu(lien){
         main.children[16].textContent=JSON.parse(resultat[1]).coordonnees;
     };
     let data = new FormData();
-    data.append("idproduit", window.location.search.split("=")[1]);
+    data.append("idproduit", recuperationIdUrl(window.location.pathname));
     xhr.send(data);
 };
 recuperationContenu("php/contenu.php");
@@ -65,3 +65,8 @@ video.addEventListener('timeupdate',()=>{
         temps.textContent="00:"+secondes+"/"+"00:"+tempsVideo;
     }
 });
+
+function recuperationIdUrl(nomUrl){
+    let nomUrlSplit=nomUrl.split("-");
+    return nomUrlSplit[nomUrlSplit.length-1]
+};

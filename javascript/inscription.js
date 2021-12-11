@@ -1,5 +1,6 @@
 let main=document.querySelector("main");
 let formulaire=document.querySelector("form");
+let pseudo=document.querySelector("#pseudo");
 let email=document.querySelector("#email");
 let motdepasse=document.querySelector("#motdepasse");
 let boutonConnexion=document.querySelector("#inscription");
@@ -82,27 +83,36 @@ function validationIndividuelle(contenu, identifiant, position){
 };
 
 function validationTotal(inscription){
-    if(inscription[1]==="Email existe deja"){
+    if(inscription[1]==="Pseudo incorrect"){
+        if(!document.querySelector(".pPseudoIncorrect")){
+            validationIndividuelle(inscription[1], "pPseudoIncorrect", pseudo);
+        }
+    }else{
+        if(document.querySelector(".pPseudoIncorrect")){
+            document.querySelector(".pPseudoIncorrect").remove();
+        }
+    }
+    if(inscription[2]==="Email existe deja"){
         if(!document.querySelector(".pEmailExiste")){
-            validationIndividuelle(inscription[1], "pEmailExiste", email);
+            validationIndividuelle(inscription[2], "pEmailExiste", email);
         }
     }else{
         if(document.querySelector(".pEmailExiste")){
             document.querySelector(".pEmailExiste").remove();
         }
     }
-    if(inscription[2]==="Email incorrect"){
+    if(inscription[3]==="Email incorrect"){
         if(!document.querySelector(".pEmailIncorrect")){
-            validationIndividuelle(inscription[2], "pEmailIncorrect", email);
+            validationIndividuelle(inscription[3], "pEmailIncorrect", email);
         }
     }else{
         if(document.querySelector(".pEmailIncorrect")){
             document.querySelector(".pEmailIncorrect").remove();
         }
     }
-    if(inscription[3]==="Mot de passe incorrect"){
+    if(inscription[4]==="Mot de passe incorrect"){
         if(!document.querySelector(".pMotdepasse")){
-            validationIndividuelle(inscription[3], "pMotdepasse", motdepasse);
+            validationIndividuelle(inscription[4], "pMotdepasse", motdepasse);
         }
     }else{
         if(document.querySelector(".pMotdepasse")){

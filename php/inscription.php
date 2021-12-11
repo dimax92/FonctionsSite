@@ -6,6 +6,7 @@ $connexion->real_connect($host,$username,$passwd,$dbname);
 $connexion->query("SET NAMES utf8mb4");
 
 $identifiant=hash("sha256", uniqid());
+$pseudo=mysqli_real_escape_string($connexion, $_POST['inputpseudo']);
 $email=mysqli_real_escape_string($connexion, $_POST['inputemail']);
 $motdepasse=password_hash(mysqli_real_escape_string($connexion, $_POST['inputmotdepasse']), PASSWORD_DEFAULT);
 
@@ -17,6 +18,12 @@ function verificationExistanceEmail($connexion, $email) {
             return "Email existe";
         }
     };
+};
+
+function verificationPseudo(){
+    if(preg_match("#[\w \W]#", $_POST['inputpseudo'])){
+        return "Pseudo correct";
+    }
 };
 
 function verificationEmail(){
@@ -32,6 +39,11 @@ function verificationMotdepasse(){
 };
 
 function verificationTotal($connexion, $email){
+    if(verificationPseudo()!=="Pseudo correct"){
+        echo "  Pseudo incorrect";
+    }else{
+        echo "  Pseudo correct";
+    }
     if(verificationExistanceEmail($connexion, $email)==="Email existe"){
         echo "  Email existe deja";
     }else{
@@ -49,9 +61,9 @@ function verificationTotal($connexion, $email){
     }
 }
 
-function Inscription($connexion, $email, $identifiant, $motdepasse){
-    if(verificationExistanceEmail($connexion, $email)!=="Email existe" AND verificationEmail()==="Email correct" AND verificationMotdepasse()==="Mot de passe correct"){
-        $requete="INSERT INTO inscription(identifiant, email, motdepasse, authentification, likes, dislikes) VALUES ('$identifiant','$email', '$motdepasse', '', '', '')";
+function Inscription($connexion, $pseudo, $email, $identifiant, $motdepasse){
+    if(verificationPseudo()==="Pseudo correct" AND verificationExistanceEmail($connexion, $email)!=="Email existe" AND verificationEmail()==="Email correct" AND verificationMotdepasse()==="Mot de passe correct"){
+        $requete="INSERT INTO inscription(identifiant, pseudo, email, motdepasse, authentification, likes, dislikes) VALUES ('$identifiant', '$pseudo', '$email', '$motdepasse', '', '', '')";
         $requetesql = $connexion->query("$requete");
         echo "Inscription valide";
     }else{
@@ -60,7 +72,7 @@ function Inscription($connexion, $email, $identifiant, $motdepasse){
     };
 };
 
-Inscription($connexion, $email, $identifiant, $motdepasse, $connexion);
+Inscription($connexion, $pseudo, $email, $identifiant, $motdepasse);
 
 $connexion->close();
 ?>

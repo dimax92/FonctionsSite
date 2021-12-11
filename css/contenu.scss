@@ -80,4 +80,39 @@ main {
             }
         }
     }
+    .divCommentaireSup{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        textarea{
+            resize: none;
+            height: 100px;
+            width: 90%;
+            border-radius: 20px;
+            padding: 1% 3%;
+        }
+        button{
+            margin: 10px 0px;
+            font-weight: bold;
+            border-radius: 10px;
+            width: 30%;
+            height: 30px;
+            cursor: pointer;
+        }
+        .divCommentaire{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .pseudo{
+                font-weight: bold;
+            }
+            .commentaire{
+                margin: 0;
+                background: #8080802e;
+                border-radius: 10px;
+                padding: 5px;
+            }
+        }
+    }
 }

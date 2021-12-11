@@ -30,8 +30,8 @@ function recuperationDonnees($identifiant, $connexion){
         $prix=json_encode($resultat->prix);
         $devise=json_encode($resultat->devise);
         echo " didi: { $paramidproduit: $idproduit, $paramnom: $nom, $paramvideo: $video, $paramprix: $prix, $paramdevise: $devise }";
-}
-}
+    }
+};
 
 $connexion->close();
 ?>

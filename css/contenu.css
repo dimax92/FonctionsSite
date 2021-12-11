@@ -13,11 +13,94 @@ main {
   margin: 5%;
 }
 
-main p {
+main .divLikeDislike {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 50%;
+}
+
+main .divLikeDislike .divLike {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0px 10px;
+}
+
+main .divLikeDislike .divLike .fa-thumbs-up {
+  font-size: 20px;
+  color: #05cd05;
+  cursor: pointer;
+}
+
+main .divLikeDislike .divLike p {
+  font-weight: bold;
+  margin: 5px 0px;
+}
+
+main .divLikeDislike .divDislike {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0px 10px;
+}
+
+main .divLikeDislike .divDislike .fa-thumbs-down {
+  font-size: 20px;
+  color: red;
+  cursor: pointer;
+}
+
+main .divLikeDislike .divDislike p {
+  font-weight: bold;
+  margin: 5px 0px;
+}
+
+main section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 5%;
+}
+
+main section p {
   text-align: center;
 }
 
-main .divVideo {
+main section .divVideo {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -31,13 +114,13 @@ main .divVideo {
           align-items: center;
 }
 
-main .divVideo video {
+main section .divVideo video {
   width: 100%;
   max-width: 250px;
   cursor: pointer;
 }
 
-main .divVideo .controles {
+main section .divVideo .controles {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -56,16 +139,16 @@ main .divVideo .controles {
           justify-content: space-between;
 }
 
-main .divVideo .controles .fas {
+main section .divVideo .controles .fas {
   color: blue;
   cursor: pointer;
 }
 
-main .divVideo .controles p {
+main section .divVideo .controles p {
   margin: 2px 0px;
 }
 
-main .divVideo .controles .inputRange {
+main section .divVideo .controles .inputRange {
   width: 100%;
 }
 /*# sourceMappingURL=contenu.css.map */

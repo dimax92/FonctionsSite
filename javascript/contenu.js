@@ -1,6 +1,7 @@
 let main=document.querySelector("main");
+let section=document.querySelector("section");
 let video=document.querySelector("video");
-let bouton=document.querySelector(".fas"); 
+let bouton=document.querySelector(".boutonPlay"); 
 let temps=document.querySelector(".temps"); 
 let inputRange=document.querySelector(".inputRange"); 
 function recuperationContenu(lien){
@@ -8,15 +9,15 @@ function recuperationContenu(lien){
     xhr.open("POST", lien);
     xhr.onloadend=function(){
         let resultat=this.response.split(" didi: ");
-        main.children[0].textContent=JSON.parse(resultat[1]).nom;
-        main.children[2].textContent=JSON.parse(resultat[1]).marque;
-        main.children[4].children[0].src="Videos/"+JSON.parse(resultat[1]).video;
-        main.children[6].textContent=JSON.parse(resultat[1]).prix+" "+JSON.parse(resultat[1]).devise;
-        main.children[8].textContent=JSON.parse(resultat[1]).descriptions;
-        main.children[10].textContent=JSON.parse(resultat[1]).quantite;
-        main.children[12].textContent=JSON.parse(resultat[1]).types;
-        main.children[14].textContent=JSON.parse(resultat[1]).conditions;
-        main.children[16].textContent=JSON.parse(resultat[1]).coordonnees;
+        section.children[0].textContent=JSON.parse(resultat[1]).nom;
+        section.children[2].textContent=JSON.parse(resultat[1]).marque;
+        section.children[4].children[0].src="Videos/"+JSON.parse(resultat[1]).video;
+        section.children[6].textContent=JSON.parse(resultat[1]).prix+" "+JSON.parse(resultat[1]).devise;
+        section.children[8].textContent=JSON.parse(resultat[1]).descriptions;
+        section.children[10].textContent=JSON.parse(resultat[1]).quantite;
+        section.children[12].textContent=JSON.parse(resultat[1]).types;
+        section.children[14].textContent=JSON.parse(resultat[1]).conditions;
+        section.children[16].textContent=JSON.parse(resultat[1]).coordonnees;
     };
     let data = new FormData();
     data.append("idproduit", recuperationIdUrl(window.location.pathname));

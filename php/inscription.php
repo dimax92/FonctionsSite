@@ -63,7 +63,7 @@ function verificationTotal($connexion, $email){
 
 function Inscription($connexion, $pseudo, $email, $identifiant, $motdepasse){
     if(verificationPseudo()==="Pseudo correct" AND verificationExistanceEmail($connexion, $email)!=="Email existe" AND verificationEmail()==="Email correct" AND verificationMotdepasse()==="Mot de passe correct"){
-        $requete="INSERT INTO inscription(identifiant, pseudo, email, motdepasse, authentification, likes, dislikes) VALUES ('$identifiant', '$pseudo', '$email', '$motdepasse', '', '', '')";
+        $requete="INSERT INTO inscription(identifiant, pseudo, email, motdepasse, authentification, likes, dislikes, nbcommentaires, tempsattente) VALUES ('$identifiant', '$pseudo', '$email', '$motdepasse', '', '', '', 0, 0)";
         $requetesql = $connexion->query("$requete");
         echo "Inscription valide";
     }else{

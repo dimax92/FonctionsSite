@@ -93,7 +93,7 @@ main section {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 5%;
+  width: 100%;
 }
 
 main section p {
@@ -205,5 +205,10 @@ main .divCommentaireSup .divCommentaire .commentaire {
   background: #8080802e;
   border-radius: 10px;
   padding: 5px;
+}
+
+#map {
+  height: 180px;
+  width: 100%;
 }
 /*# sourceMappingURL=contenu.css.map */

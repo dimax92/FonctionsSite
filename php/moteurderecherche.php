@@ -5,16 +5,6 @@ $connexion->options(MYSQLI_CLIENT_SSL, 'SET AUTOCOMMIT = 0');
 $connexion->real_connect($host,$username,$passwd,$dbname);
 $connexion->query("SET NAMES utf8mb4");
 
-/*$recherche=explode(" ", $_POST['recherche']);
-$chaine0=mysqli_real_escape_string($connexion, $recherche[0]);
-$sousrequete0="SELECT * FROM produits WHERE (nom LIKE '%$chaine0%' OR marque LIKE '%$chaine0%' OR descriptions LIKE '%$chaine0%' OR types LIKE '%$chaine0%' OR conditions LIKE '%$chaine0%') " ;
-$sousrequete1="";
-for($j=1; $j<=count($recherche)-1; $j++){
-    $chaine1=mysqli_real_escape_string($connexion, $recherche[$j]);
-    $sousrequete1.=" AND (nom LIKE '%$chaine1%' OR marque LIKE '%$chaine1%' OR descriptions LIKE '%$chaine1%' OR types LIKE '%$chaine1%' OR conditions LIKE '%$chaine1%') ";
-};
-$requete="$sousrequete0 $sousrequete1";*/
-
 $requete="SELECT * FROM produits";
 
 $requetesql=$connexion->query("$requete");
@@ -29,6 +19,8 @@ while($resultat=mysqli_fetch_object($requetesql)){
     $paramquantite=json_encode("quantite");
     $paramtypes=json_encode("types");
     $paramconditions=json_encode("conditions");
+    $paramlattitude=json_encode("lattitude");
+    $paramlongitude=json_encode("longitude");
 
     $idproduit=json_encode($resultat->idproduit);
     $nom=json_encode($resultat->nom);
@@ -40,6 +32,8 @@ while($resultat=mysqli_fetch_object($requetesql)){
     $quantite=json_encode($resultat->quantite);
     $types=json_encode($resultat->types);
     $conditions=json_encode($resultat->conditions);
+    $lattitude=json_encode($resultat->lattitude);
+    $longitude=json_encode($resultat->longitude);
     echo " didi: { $paramidproduit: $idproduit, 
     $paramnom: $nom, 
     $parammarque: $marque, 
@@ -49,7 +43,9 @@ while($resultat=mysqli_fetch_object($requetesql)){
     $paramdescriptions: $descriptions, 
     $paramquantite: $quantite, 
     $paramtypes: $types, 
-    $paramconditions: $conditions
+    $paramconditions: $conditions, 
+    $paramlattitude: $lattitude, 
+    $paramlongitude: $longitude
  }";
 };
 $connexion->close();

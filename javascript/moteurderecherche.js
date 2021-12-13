@@ -4,6 +4,10 @@ let recherche=document.querySelector("#inputrecherche");
 let buttonRecherche=document.querySelector("button");
 let buttonDecroissant=document.querySelector(".buttonDecroissant");
 let buttonCroissant=document.querySelector(".buttonCroissant");
+let inputlieu=document.querySelector(".inputlieu");
+let inputdistance=document.querySelector(".inputdistance");
+
+let comparaisonLattitudeLongitudeReponse;
 
 function recevoirDonnees(lien){
     let xhr=new XMLHttpRequest();
@@ -22,14 +26,14 @@ function recevoirDonnees(lien){
             let valQuantite=JSON.parse(resultat[a]).quantite;
             let valTypes=JSON.parse(resultat[a]).types;
             let valConditions=JSON.parse(resultat[a]).conditions;
+            let valLattitude=JSON.parse(resultat[a]).lattitude;
+            let valLongitude=JSON.parse(resultat[a]).longitude;
             let produitsEnsemble=valNom+" "+
             valMarque+" "+
             valDescriptions+" "+
             valTypes+" "+
             valConditions;
-            if(filtreRecherche(rechercheValeur, produitsEnsemble)>=0.8){
-                creationProduit(valId, valNom, valVideo, valPrix, valDevise);
-            };
+            comparaisonLattitudeLongitude(inputlieu.value, valLattitude, valLongitude, rechercheValeur, produitsEnsemble, valId, valNom, valVideo, valPrix, valDevise);
         };
     };
     xhr.send();
@@ -158,4 +162,48 @@ function remplacementEspacesTirets(espaces){
         }
     };
     return nouveauEspaces.join("-");
+};
+
+function comparaisonLattitudeLongitude(lieu, valLattitude, valLongitude, rechercheValeur, produitsEnsemble, valId, valNom, valVideo, valPrix, valDevise){
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://nominatim.openstreetmap.org/search?format=json&limit=1&q="+lieu);
+    xhr.onloadend = function() {
+        let reponseLatLon=JSON.parse(this.response);
+        if(reponseLatLon.length>=1){
+            let longitude=reponseLatLon[0].lon;
+            let lattitude=reponseLatLon[0].lat;
+            if(calculDistance(lattitude, longitude, valLattitude, valLongitude, "K")<=inputdistance.value){
+                if(filtreRecherche(rechercheValeur, produitsEnsemble)>=0.8){
+                    creationProduit(valId, valNom, valVideo, valPrix, valDevise);
+                };
+            }
+        }else{
+            if(filtreRecherche(rechercheValeur, produitsEnsemble)>=0.8){
+                creationProduit(valId, valNom, valVideo, valPrix, valDevise);
+            };
+        }
+    };
+    xhr.send();
+};
+
+function calculDistance(lat1, lon1, lat2, lon2, unit) {
+	if ((lat1 == lat2) && (lon1 == lon2)) {
+		return 0;
+	}
+	else {
+		var radlat1 = Math.PI * lat1/180;
+		var radlat2 = Math.PI * lat2/180;
+		var theta = lon1-lon2;
+		var radtheta = Math.PI * theta/180;
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = dist * 180/Math.PI;
+		dist = dist * 60 * 1.1515;
+		if (unit=="K") { dist = dist * 1.609344 }
+		if (unit=="N") { dist = dist * 0.8684 }
+		return dist;
+	}
 };

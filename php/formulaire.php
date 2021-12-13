@@ -20,6 +20,9 @@ $quantite=mysqli_real_escape_string($connexion, $_POST['inputquantite']);
 $types=mysqli_real_escape_string($connexion, $_POST['inputcategorie']);
 $conditions=mysqli_real_escape_string($connexion, $_POST['condition']);
 $coordonnees=mysqli_real_escape_string($connexion, $_POST['coordonnees']);
+$nomLieu=mysqli_real_escape_string($connexion, $_POST['nomlieu']);
+$lattitude=mysqli_real_escape_string($connexion, $_POST['lattitude']);
+$longitude=mysqli_real_escape_string($connexion, $_POST['longitude']);
 
 $typeVideo=$_FILES['inputimages']['type'];
 $tailleVideo=$_FILES['inputimages']['size'];
@@ -99,7 +102,13 @@ function testCoordonnees($coordonnees){
     }
 };
 
-function testDonnees($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees) {
+function testNomLieu($nomLieu){
+    if(preg_match("#[\W \w]#", $nomLieu)){
+        return "Ok";
+    }
+};
+
+function testDonnees($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu) {
     if(
         testNom($nom)==="Ok" AND 
         testMarque($marque)==="Ok" AND 
@@ -111,7 +120,8 @@ function testDonnees($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $d
         testQuantite($quantite)==="Ok" AND 
         testTypes($types)==="Ok" AND 
         testConditions($conditions)==="Ok" AND 
-        testCoordonnees($coordonnees)==="Ok"
+        testCoordonnees($coordonnees)==="Ok" AND 
+        testNomLieu($nomLieu)==="Ok"
     ){
         return "conforme";
     }else{
@@ -119,7 +129,7 @@ function testDonnees($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $d
     }
 };
 
-function testDonneesIndividuelles($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees){
+function testDonneesIndividuelles($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu){
     if(testNom($nom)==="Ok"){
         echo "!Nom correct";
     }else{
@@ -175,12 +185,17 @@ function testDonneesIndividuelles($nom, $marque, $typeVideo, $tailleVideo, $prix
     }else{
         echo "!Coordonnees incorrect";
     }
+    if(testNomLieu($nomLieu)==="Ok"){
+        echo "!Coordonnees lieu correct";
+    }else{
+        echo "!Coordonnees lieu incorrect";
+    }
 };
 
-function envoiDonneesFichiers($nomfichier, $connexion, $identifiant, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees){
+function envoiDonneesFichiers($nomfichier, $connexion, $identifiant, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude){
     $identifiante=mysqli_real_escape_string($connexion, $identifiant);
-    $requete="INSERT INTO produits(identifiant, idproduit, nom, marque, video, videonom, prix, devise, descriptions, quantite, types, conditions, coordonnees, likes, dislikes) 
-    VALUES ('$identifiante', '$idproduit', '$nom', '$marque', '$video', '$videonom', '$prix', '$devise', '$descriptions', '$quantite', '$types', '$conditions', '$coordonnees', 0, 0)";
+    $requete="INSERT INTO produits(identifiant, idproduit, nom, marque, video, videonom, prix, devise, descriptions, quantite, types, conditions, coordonnees, likes, dislikes, nomlieu, lattitude, longitude) 
+    VALUES ('$identifiante', '$idproduit', '$nom', '$marque', '$video', '$videonom', '$prix', '$devise', '$descriptions', '$quantite', '$types', '$conditions', '$coordonnees', 0, 0, '$nomLieu', '$lattitude', '$longitude')";
     $requetesql = $connexion->query("$requete");
     if($requetesql){
         $envoifichier=move_uploaded_file($_FILES['inputimages']['tmp_name'], "C:/wamp64/www/NouveauSite/Videos/".$nomfichier.basename($_FILES['inputimages']['name']));
@@ -206,12 +221,12 @@ function recuperationIdentifiant($connexion, $authentifiant){
 $identifiant=recuperationIdentifiant($connexion, $authentifiant);
 
 if(
-    testDonnees($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees)==="conforme"
+    testDonnees($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu)==="conforme"
 ){
-    envoiDonneesFichiers($nomfichier, $connexion, $identifiant, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees);
+    envoiDonneesFichiers($nomfichier, $connexion, $identifiant, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude);
 }else{
     echo "echec";
-    testDonneesIndividuelles($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees);
+    testDonneesIndividuelles($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu);
 }
 
 $connexion->close();

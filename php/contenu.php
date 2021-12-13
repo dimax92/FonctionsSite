@@ -21,6 +21,10 @@ while($resultat=mysqli_fetch_object($requetesql)){
     $paramtypes=json_encode("types");
     $paramconditions=json_encode("conditions");
     $paramcoordonnees=json_encode("coordonnees");
+    $paramnomlieu=json_encode("nomlieu");
+    $paramlattitude=json_encode("lattitude");
+    $paramlongitude=json_encode("longitude");
+
     $nom=json_encode($resultat->nom);
     $marque=json_encode($resultat->marque);
     $video=json_encode($resultat->video);
@@ -32,9 +36,12 @@ while($resultat=mysqli_fetch_object($requetesql)){
     $types=json_encode($resultat->types);
     $conditions=json_encode($resultat->conditions);
     $coordonnees=json_encode($resultat->coordonnees);
+    $nomlieu=json_encode($resultat->nomlieu);
+    $lattitude=json_encode($resultat->lattitude);
+    $longitude=json_encode($resultat->longitude);
     echo " didi: { $paramnom: $nom, $parammarque: $marque, $paramvideo: $video, $paramvideonom: $videonom, $paramprix: $prix, $paramdevise: $devise, 
         $paramdescriptions: $descriptions, $paramquantite: $quantite, $paramtypes: $types, $paramconditions: $conditions, 
-        $paramcoordonnees: $coordonnees }";
+        $paramcoordonnees: $coordonnees, $paramnomlieu: $nomlieu, $paramlattitude: $lattitude, $paramlongitude: $longitude }";
 }
 
 $connexion->close();

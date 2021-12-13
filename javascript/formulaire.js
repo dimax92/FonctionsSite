@@ -11,15 +11,28 @@ let quantite=document.querySelector("#inputquantite");
 let type=document.querySelector("#inputcategorie");
 let condition=document.querySelector("#inputcondition");
 let coordonnees=document.querySelector("#inputcoordonnees");
+let nomlieu=document.querySelector("#nomlieu");
 let boutonEnvoie=document.querySelector("#buttonenvoyer");
 let donnees="";
 
-function envoiDonnees(lien){
+function recuperationLattitudeLongitude(lieu){
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://nominatim.openstreetmap.org/search?format=json&limit=1&q="+lieu);
+    xhr.onloadend = function() {
+        let reponse=JSON.parse(this.response);
+        let longitude=reponse[0].lon;
+        let lattitude=reponse[0].lat;
+        let nomLieu=reponse[0].display_name;
+        envoiDonnees("php/formulaire.php", longitude, lattitude, nomLieu)
+    };
+    xhr.send();
+};
+
+function envoiDonnees(lien, longitude, lattitude, nomLieu){
     const form = document.querySelector("form");
     let xhr = new XMLHttpRequest();
     xhr.open("POST", lien);
     xhr.upload.addEventListener("progress", (e) =>{
-        console.log(e);
         xhr.onloadend = function() {
             donnees=this.response.split("!");
             if(this.response==="Produit enregistre"){
@@ -32,6 +45,9 @@ function envoiDonnees(lien){
         }
     });
     let data = new FormData(form);
+    data.append("longitude", longitude);
+    data.append("lattitude", lattitude);
+    data.append("nomlieu", nomLieu);
     xhr.send(data);
 };
 
@@ -104,6 +120,7 @@ function validationComplete(donnees){
     validationTotal(donnees, 9, "Categorie incorrect", "categorieIncorrect", ".categorieIncorrect", type);
     validationTotal(donnees, 10, "Condition incorrect", "conditionIncorrect", ".conditionIncorrect", condition);
     validationTotal(donnees, 11, "Coordonnees incorrect", "coordonneesIncorrect", ".coordonneesIncorrect", coordonnees);
+    validationTotal(donnees, 12, "Coordonnees lieu incorrect", "coordonneesLieuIncorrect", ".coordonneesLieuIncorrect", nomlieu);
 };
 
 function validationTotal(donnees, numero, resultat, creationId, identifiant, elementInsert){
@@ -119,7 +136,7 @@ function validationTotal(donnees, numero, resultat, creationId, identifiant, ele
 };
 
 boutonEnvoie.addEventListener("click", ()=>{
-        envoiDonnees("php/formulaire.php");
+        recuperationLattitudeLongitude(nomlieu.value);
 });
 
 formulaire.addEventListener("submit",(e)=>{

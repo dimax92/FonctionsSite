@@ -43,7 +43,20 @@ function lienMesProduits(){
 function boutonDeconnexion(){
     let deconnexion= document.createElement("button");
     deconnexion.textContent="Deconnexion";
+    deconnexion.className="boutonDeconnexion";
     header.insertBefore(deconnexion, nav);
+    deconnexion.addEventListener("click", ()=>{
+        functionDeconnexion("php/deconnexion.php");
+    });
+};
+
+function functionDeconnexion(lien){
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", lien);
+    xhr.onprogress = function() {
+        console.log(this.response);
+    };
+    xhr.send();
 };
 
 window.addEventListener("load", ()=>{

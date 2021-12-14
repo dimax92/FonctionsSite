@@ -9,15 +9,18 @@ let quantite=document.querySelector(".pQuantite");
 let categorie=document.querySelector(".pCategorie");
 let condition=document.querySelector(".pCondition");
 let coordonneesContact=document.querySelector(".pCoordonneesContact");
-let iFrameCarte=document.querySelector(".iFrameCarte");
 let bouton=document.querySelector(".boutonPlay"); 
 let temps=document.querySelector(".temps"); 
 let inputRange=document.querySelector(".inputRange"); 
+let nombreLikes=document.querySelector(".nombreLikes");
+let nombreDislikes=document.querySelector(".nombreDislikes");
 function recuperationContenu(lien){
     let xhr = new XMLHttpRequest();
     xhr.open("POST", lien);
     xhr.onloadend=function(){
         let resultat=this.response.split(" didi: ");
+        nombreLikes.textContent=JSON.parse(resultat[1]).likes;
+        nombreDislikes.textContent=JSON.parse(resultat[1]).dislikes;
         nomProduit.textContent=JSON.parse(resultat[1]).nom;
         marque.textContent=JSON.parse(resultat[1]).marque;
         video.src="Videos/"+JSON.parse(resultat[1]).video;
@@ -90,7 +93,7 @@ function carteProduit(lattitude, longitude){
         id: 'mapbox/streets-v11',
         tileSize: 512,
         zoomOffset: -1,
-        accessToken: 'your.mapbox.access.token'
+        accessToken: ''
     }).addTo(map);
     let marker = L.marker([lattitude, longitude]).addTo(map);
     marker.on('click', (e)=>{

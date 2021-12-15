@@ -6,7 +6,7 @@ $connexion->options(MYSQLI_CLIENT_SSL, 'SET AUTOCOMMIT = 0');
 $connexion->real_connect($host,$username,$passwd,$dbname);
 $connexion->query("SET NAMES utf8mb4");
 
-if(testAuthentification($connexion)==="Authentification valide"){
+//if(testAuthentification($connexion)==="Authentification valide"){
     $authentifiant=mysqli_real_escape_string($connexion, $_COOKIE["authentifiant"]);
 
     $requeteIdentifiant="SELECT * FROM inscription WHERE authentification='$authentifiant'";
@@ -14,7 +14,7 @@ if(testAuthentification($connexion)==="Authentification valide"){
     while($resultatIdentifiant=mysqli_fetch_object($requeteIdentifiantsql)){
         $identifiant=$resultatIdentifiant->identifiant;
         recuperationDonnees($identifiant, $connexion);
-    }
+    };
     
     function recuperationDonnees($identifiant, $connexion){
         $identifiante=mysqli_real_escape_string($connexion, $identifiant);
@@ -34,9 +34,9 @@ if(testAuthentification($connexion)==="Authentification valide"){
             echo " didi: { $paramidproduit: $idproduit, $paramnom: $nom, $paramvideo: $video, $paramprix: $prix, $paramdevise: $devise }";
         }
     };
-}else{
+/*}else{
     echo "Vous n'etes pas connecte";
-}
+}*/
 
 $connexion->close();
 ?>

@@ -2,7 +2,21 @@ let main=document.querySelector("main");
 let formulaire=document.querySelector("form");
 let labelimages=document.querySelector("#labelimages");
 let video=document.querySelector("#images");
+let nomlieu=document.querySelector("#nomlieu");
 let boutonEnvoie=document.querySelector("#buttonenvoyer");
+
+function recuperationLattitudeLongitude(lieu){
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://nominatim.openstreetmap.org/search?format=json&limit=1&q="+lieu);
+    xhr.onloadend = function() {
+        let reponse=JSON.parse(this.response);
+        let longitude=reponse[0].lon;
+        let lattitude=reponse[0].lat;
+        let nomLieu=reponse[0].display_name;
+        envoiDonnees("php/modifier.php", longitude, lattitude, nomLieu)
+    };
+    xhr.send();
+};
 
 function recuperationContenu(lien){
     let xhr = new XMLHttpRequest();
@@ -19,6 +33,7 @@ function recuperationContenu(lien){
         formulaire.children[15].value=JSON.parse(resultat[1]).types;
         formulaire.children[17].value=JSON.parse(resultat[1]).conditions;
         formulaire.children[19].value=JSON.parse(resultat[1]).coordonnees;
+        formulaire.children[21].value=JSON.parse(resultat[1]).nomlieu;
     };
     let data = new FormData();
     data.append("idproduit", window.location.search.split("=")[1]);
@@ -26,7 +41,7 @@ function recuperationContenu(lien){
 };
 recuperationContenu("php/contenu.php");
 
-function envoiDonnees(lien){
+function envoiDonnees(lien, longitude, lattitude, nomLieu){
     const form = document.querySelector("form");
     let xhr = new XMLHttpRequest();
     xhr.open("POST", lien);
@@ -42,6 +57,9 @@ function envoiDonnees(lien){
     });
     let data = new FormData(form);
     data.append("idproduit", window.location.search.split("=")[1]);
+    data.append("longitude", longitude);
+    data.append("lattitude", lattitude);
+    data.append("nomlieu", nomLieu);
     xhr.send(data);
 };
 
@@ -94,7 +112,7 @@ function validationFormulaire(){
 };
 
 boutonEnvoie.addEventListener("click", ()=>{
-        envoiDonnees("php/modifier.php");
+    recuperationLattitudeLongitude(nomlieu.value);
 });
 
 formulaire.addEventListener("submit",(e)=>{

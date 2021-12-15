@@ -78,12 +78,12 @@ if(testAuthentification($connexion)==="Authentification valide"){
     
     if(rechercheCorrespondanceLikes($authentifiant, $connexion, $idproduit)===0 AND rechercheCorrespondanceDislikes($authentifiant, $connexion, $idproduit)===0){
         if(ajoutLike($idproduit, $connexion)==="envoye" AND ajoutLikeInscrit($idproduit, $authentifiant, $connexion)==="envoye"){
-            echo "envoye";
+            echo "like envoye";
         }else{
-            echo "echec";
+            echo "echec envoie like";
         };
     }else{
-        echo "vous avez deja mis un like ou un dislike";
+        echo "vous avez deja mis un like";
     }
 }else{
     echo "Vous n'etes pas connecte";

@@ -20,11 +20,14 @@ if(testAuthentification($connexion)==="Authentification valide"){
     $types=mysqli_real_escape_string($connexion, $_POST['inputcategorie']);
     $conditions=mysqli_real_escape_string($connexion, $_POST['condition']);
     $coordonnees=mysqli_real_escape_string($connexion, $_POST['coordonnees']);
+    $nomLieu=mysqli_real_escape_string($connexion, $_POST['nomlieu']);
+    $lattitude=mysqli_real_escape_string($connexion, $_POST['lattitude']);
+    $longitude=mysqli_real_escape_string($connexion, $_POST['longitude']);
     
     $typeVideo=$_FILES['inputimages']['type'];
     $tailleVideo=$_FILES['inputimages']['size'];
     
-    function testDonneesAvecVideos($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees) {
+    function testDonneesAvecVideos($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu) {
         if(
             preg_match("#[\W \w]#", $nom) AND 
             preg_match("#[\W \w]#", $marque) AND 
@@ -45,7 +48,8 @@ if(testAuthentification($connexion)==="Authentification valide"){
             preg_match("#[0-9]#", $quantite) AND 
             preg_match("#[\W \w]#", $types) AND 
             preg_match("#[\W \w]#", $conditions) AND 
-            preg_match("#[\W \w]#", $coordonnees)
+            preg_match("#[\W \w]#", $coordonnees) AND 
+            preg_match("#[\W \w]#", $nomLieu)
         ){
             return "conforme";
         }else{
@@ -53,7 +57,7 @@ if(testAuthentification($connexion)==="Authentification valide"){
         }
     }
     
-    function testDonneesSansVideos($nom, $marque, $typeVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees) {
+    function testDonneesSansVideos($nom, $marque, $typeVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu) {
         if(
             preg_match("#[\W \w]#", $nom) AND 
             preg_match("#[\W \w]#", $marque) AND 
@@ -64,7 +68,8 @@ if(testAuthentification($connexion)==="Authentification valide"){
             preg_match("#[0-9]#", $quantite) AND 
             preg_match("#[\W \w]#", $types) AND 
             preg_match("#[\W \w]#", $conditions) AND 
-            preg_match("#[\W \w]#", $coordonnees)
+            preg_match("#[\W \w]#", $coordonnees) AND 
+            preg_match("#[\W \w]#", $nomLieu)
         ){
             return "conforme";
         }else{
@@ -72,10 +77,10 @@ if(testAuthentification($connexion)==="Authentification valide"){
         }
     }
     
-    function modificationDonneesFichiers($nomfichier, $connexion, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees){
+    function modificationDonneesFichiers($nomfichier, $connexion, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude){
         if(suppressionFichier($connexion, $idproduit)==="fichier supprime"){
             $requete=" UPDATE produits SET nom = '$nom', marque = '$marque', video = '$video', videonom = '$videonom', prix = '$prix', devise = '$devise', 
-            descriptions = '$descriptions', quantite = '$quantite', types = '$types', conditions = '$conditions', coordonnees = '$coordonnees' 
+            descriptions = '$descriptions', quantite = '$quantite', types = '$types', conditions = '$conditions', coordonnees = '$coordonnees', nomlieu = '$nomLieu', lattitude = '$lattitude', longitude = '$longitude'   
             WHERE '$idproduit'= idproduit ";
             $requetesql = $connexion->query("$requete");
             if($requetesql){
@@ -104,9 +109,9 @@ if(testAuthentification($connexion)==="Authentification valide"){
         }
     }
     
-    function modificationDonneesSansVideo($connexion, $idproduit, $nom, $marque, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees){
+    function modificationDonneesSansVideo($connexion, $idproduit, $nom, $marque, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude){
         $requete=" UPDATE produits SET nom = '$nom', marque = '$marque', prix = '$prix', devise = '$devise', 
-        descriptions = '$descriptions', quantite = '$quantite', types = '$types', conditions = '$conditions', coordonnees = '$coordonnees' 
+        descriptions = '$descriptions', quantite = '$quantite', types = '$types', conditions = '$conditions', coordonnees = '$coordonnees', nomlieu = '$nomLieu', lattitude = '$lattitude', longitude = '$longitude'  
         WHERE '$idproduit'= idproduit ";
         $requetesql = $connexion->query("$requete");
         if($requetesql){
@@ -117,14 +122,14 @@ if(testAuthentification($connexion)==="Authentification valide"){
     }
     
     if(
-        testDonneesAvecVideos($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees)==="conforme"
+        testDonneesAvecVideos($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu)==="conforme"
     ){
         //suppressionFichier($connexion, $idproduit);
-        modificationDonneesFichiers($nomfichier, $connexion, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees);
+        modificationDonneesFichiers($nomfichier, $connexion, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude);
     }elseif(
-        testDonneesSansVideos($nom, $marque, $typeVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees)==="conforme"
+        testDonneesSansVideos($nom, $marque, $typeVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu)==="conforme"
     ){
-        modificationDonneesSansVideo($connexion, $idproduit, $nom, $marque, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees);
+        modificationDonneesSansVideo($connexion, $idproduit, $nom, $marque, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude);
     }else{
         echo "echec";
     }

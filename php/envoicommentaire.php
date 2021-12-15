@@ -77,9 +77,9 @@ if(testAuthentification($connexion)==="Authentification valide"){
         if(recuperationTempsAttente($authentifiant, $connexion)<=time()){
             if(envoiCommentaire($idproduit, $pseudo, $commentaire, $connexion)==="envoye"){
                 nbCommentaires($authentifiant, $connexion);
-                echo "envoye";
+                echo "Commentaire envoye";
             }else{
-                echo "echec";
+                echo "Echec envoi commentaire";
             }
         }else{
             echo "Vous n'avez le droit qu'a 2 commentaires par jour";

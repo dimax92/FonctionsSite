@@ -6,8 +6,8 @@ $connexion->real_connect($host,$username,$passwd,$dbname);
 $connexion->query("SET NAMES utf8mb4");
 
 $identifiant=hash("sha256", uniqid());
-$pseudo=mysqli_real_escape_string($connexion, $_POST['inputpseudo']);
-$email=mysqli_real_escape_string($connexion, $_POST['inputemail']);
+$pseudo=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['inputpseudo']));
+$email=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['inputemail']));
 $motdepasse=password_hash(mysqli_real_escape_string($connexion, $_POST['inputmotdepasse']), PASSWORD_DEFAULT);
 
 function verificationExistanceEmail($connexion, $email) {

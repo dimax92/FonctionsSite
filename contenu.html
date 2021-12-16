@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Nom du produit</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" integrity="sha512-oHDEc8Xed4hiW6CxD7qjbnI+B07vDdX7hEPTvn9pSZO1bcRqHp8mj9pyr+8RVC2GmtEfI2Bi9Ke9Ass0as+zpg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -18,25 +19,13 @@
             <img src="Images/Logo.png" alt="Logo du site">
             <nav>
                 <ul>
-                    <li><a href="inscription.html">S'inscrire</a></li>
-                    <li><a href="authentification.html">S'authentifier</a></li>
-                    <li><a href="moteurderecherche.html">Rechercher</a></li>
+                    <li><a href="inscription"><i class="fas fa-user-plus"></i> S'inscrire</a></li>
+                    <li><a href="authentification"><i class="fas fa-user"></i> S'authentifier</a></li>
+                    <li><a href="moteurderecherche"><i class="fas fa-search"></i> Rechercher</a></li>
                 </ul>
             </nav>
         </header>
         <main>
-            <div class="divLikeDislike">
-                <div class="divLike">
-                    <i class="fas fa-thumbs-up"></i>
-                    <p>J'aime</p>
-                    <p class="nombreLikes">0</p>
-                </div>
-                <div class="divDislike">
-                    <i class="fas fa-thumbs-down"></i>
-                    <p>Je n'aime pas</p>
-                    <p class="nombreDislikes">0</p>
-                </div>
-            </div>
             <section>
                 <h1 class="hNomProduit">Nom du produit</h1>
                 <h2 class="hmarque">Marque</h2>
@@ -68,14 +57,33 @@
                 <p class='contenu pCoordonneesProduit'>romrkmrv</p>
                 <div id="map"></div>
             </section>
+            <div class="divLikeDislike">
+                <div class="divLike">
+                    <i class="fas fa-thumbs-up"></i>
+                    <p>J'aime</p>
+                    <p class="nombreLikes">0</p>
+                </div>
+                <div class="divDislike">
+                    <i class="fas fa-thumbs-down"></i>
+                    <p>Je n'aime pas</p>
+                    <p class="nombreDislikes">0</p>
+                </div>
+            </div>
             <div class="divCommentaireSup">
                 <h2>Commentaires</h2>
-                <h3>Ecrire un commentaire</h3>
-                <textarea class="textCommentaire"></textarea>
+                <label for="textCommentaire">
+                    <h3>Ecrire un commentaire</h3>
+                </label>
+                <textarea class="textCommentaire" id="textCommentaire" name="textCommentaire"></textarea>
                 <button class="boutonCommentaire">Envoyer</button>
             </div>
         </main>
-        <footer></footer>
+        <footer>
+            <i class="fab fa-html5"></i>
+            <i class="fab fa-css3-alt"></i>
+            <i class="fab fa-js-square"></i>
+            <i class="fab fa-php"></i>
+        </footer>
         <script src="javascript/connexion.js"></script>
         <script src="javascript/contenu.js"></script>
         <script src="javascript/likesdislikes.js"></script>

@@ -1,4 +1,6 @@
 @import url("header.css");
+@import url("footer.css");
+@import url("typography.css");
 main {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -88,7 +90,6 @@ main .divFiltres {
 
 main .divFiltres button {
   width: 120px;
-  height: 30px;
   border-radius: 10px;
   font-weight: bold;
   cursor: pointer;

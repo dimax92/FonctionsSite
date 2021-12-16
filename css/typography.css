@@ -1,0 +1,36 @@
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 100%;
+}
+
+button {
+  border: 0;
+  background: #03a9f4;
+  color: white;
+}
+
+input, textarea {
+  border: solid 0.1px #0000002e;
+}
+
+input:focus {
+  border: solid 0.1px #03a9f4;
+  background: -webkit-gradient(linear, left top, right top, from(#03a9f414), to(transparent));
+  background: linear-gradient(90deg, #03a9f414, transparent);
+}
+
+textarea:focus {
+  border: solid 0.1px #03a9f4;
+  background: -webkit-gradient(linear, left top, right top, from(#03a9f414), to(transparent));
+  background: linear-gradient(90deg, #03a9f414, transparent);
+}
+/*# sourceMappingURL=typography.css.map */

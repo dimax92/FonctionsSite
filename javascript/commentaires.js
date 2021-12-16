@@ -82,4 +82,5 @@ function envoiMessagesErreursCommentaires(donnees){
     validationTotalCommentaires(donnees, "Vous n'avez le droit qu'a 2 commentaires par jour", "deuxCommentaires", ".deuxCommentaires", textCommentaire, "red");
     validationTotalCommentaires(donnees, "Echec envoi commentaire", "echecCommentaire", ".echecCommentaire", textCommentaire, "red");
     validationTotalCommentaires(donnees, "Vous n'etes pas connecte", "pasConnecteCommentaire", ".pasConnecteCommentaire", textCommentaire, "red");
+    validationTotalCommentaires(donnees, "Vous ne pouvez pas mettre de commentaire sur votre produit", "pasCommentaire", ".pasCommentaire", textCommentaire, "red");
 };

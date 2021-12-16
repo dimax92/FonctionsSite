@@ -10,6 +10,22 @@ if(testAuthentification($connexion)==="Authentification valide"){
     $authentifiant=mysqli_real_escape_string($connexion, $_COOKIE["authentifiant"]);
     $idproduit=mysqli_real_escape_string($connexion, $_POST["idproduit"]);
     
+    function recuperationidentifiantProduit($idproduit, $connexion){
+        $requeteIdentifiant="SELECT * FROM produits WHERE idproduit='$idproduit'";
+        $requeteIdentifiantsql=$connexion->query("$requeteIdentifiant");
+        while($resultatIdentifiant=mysqli_fetch_object($requeteIdentifiantsql)){
+            return $resultatIdentifiant->identifiant;
+        }
+    };
+
+    function recuperationIdentifiantUtilisateur($authentifiant, $connexion){
+        $requeteIdentifiant="SELECT * FROM inscription WHERE authentification='$authentifiant'";
+        $requeteIdentifiantsql=$connexion->query("$requeteIdentifiant");
+        while($resultatIdentifiant=mysqli_fetch_object($requeteIdentifiantsql)){
+            return $resultatIdentifiant->identifiant;
+        }
+    };
+
     function recuperationLikes($authentifiant, $connexion){
         $requeteIdentifiant="SELECT * FROM inscription WHERE authentification='$authentifiant'";
         $requeteIdentifiantsql=$connexion->query("$requeteIdentifiant");
@@ -76,14 +92,18 @@ if(testAuthentification($connexion)==="Authentification valide"){
         return $compteur;
     };
     
-    if(rechercheCorrespondanceLikes($authentifiant, $connexion, $idproduit)===0 AND rechercheCorrespondanceDislikes($authentifiant, $connexion, $idproduit)===0){
-        if(ajoutLike($idproduit, $connexion)==="envoye" AND ajoutLikeInscrit($idproduit, $authentifiant, $connexion)==="envoye"){
-            echo "like envoye";
+    if(recuperationidentifiantProduit($idproduit, $connexion)!==recuperationIdentifiantUtilisateur($authentifiant, $connexion)){
+        if(rechercheCorrespondanceLikes($authentifiant, $connexion, $idproduit)===0 AND rechercheCorrespondanceDislikes($authentifiant, $connexion, $idproduit)===0){
+            if(ajoutLike($idproduit, $connexion)==="envoye" AND ajoutLikeInscrit($idproduit, $authentifiant, $connexion)==="envoye"){
+                echo "like envoye";
+            }else{
+                echo "echec envoie like";
+            };
         }else{
-            echo "echec envoie like";
-        };
+            echo "vous avez deja mis un like";
+        }
     }else{
-        echo "vous avez deja mis un like";
+        echo "Vous ne pouvez pas mettre de like sur votre produit";
     }
 }else{
     echo "Vous n'etes pas connecte";

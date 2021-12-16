@@ -10,6 +10,22 @@ if(testAuthentification($connexion)==="Authentification valide"){
     $authentifiant=mysqli_real_escape_string($connexion, $_COOKIE["authentifiant"]);
     $idproduit=mysqli_real_escape_string($connexion, $_POST["idproduit"]);
     
+    function recuperationidentifiantProduit($idproduit, $connexion){
+        $requeteIdentifiant="SELECT * FROM produits WHERE idproduit='$idproduit'";
+        $requeteIdentifiantsql=$connexion->query("$requeteIdentifiant");
+        while($resultatIdentifiant=mysqli_fetch_object($requeteIdentifiantsql)){
+            return $resultatIdentifiant->identifiant;
+        }
+    };
+
+    function recuperationIdentifiantUtilisateur($authentifiant, $connexion){
+        $requeteIdentifiant="SELECT * FROM inscription WHERE authentification='$authentifiant'";
+        $requeteIdentifiantsql=$connexion->query("$requeteIdentifiant");
+        while($resultatIdentifiant=mysqli_fetch_object($requeteIdentifiantsql)){
+            return $resultatIdentifiant->identifiant;
+        }
+    };
+
     function recuperationLikes($authentifiant, $connexion){
         $requeteIdentifiant="SELECT * FROM inscription WHERE authentification='$authentifiant'";
         $requeteIdentifiantsql=$connexion->query("$requeteIdentifiant");
@@ -75,15 +91,18 @@ if(testAuthentification($connexion)==="Authentification valide"){
         };
         return $compteur;
     };
-    
-    if(rechercheCorrespondanceLikes($authentifiant, $connexion, $idproduit)===0 AND rechercheCorrespondanceDislikes($authentifiant, $connexion, $idproduit)===0){
-        if(ajoutDislike($idproduit, $connexion)==="envoye" AND ajoutDislikeInscrit($idproduit, $authentifiant, $connexion)==="envoye"){
-            echo "dislike envoye";
+    if(recuperationidentifiantProduit($idproduit, $connexion)!==recuperationIdentifiantUtilisateur($authentifiant, $connexion)){
+        if(rechercheCorrespondanceLikes($authentifiant, $connexion, $idproduit)===0 AND rechercheCorrespondanceDislikes($authentifiant, $connexion, $idproduit)===0){
+            if(ajoutDislike($idproduit, $connexion)==="envoye" AND ajoutDislikeInscrit($idproduit, $authentifiant, $connexion)==="envoye"){
+                echo "dislike envoye";
+            }else{
+                echo "echec envoie dislike";
+            };
         }else{
-            echo "echec envoie dislike";
-        };
+            echo "vous avez deja mis un dislike";
+        }
     }else{
-        echo "vous avez deja mis un dislike";
+        echo "Vous ne pouvez pas mettre de dislike sur votre produit";
     }
 }else{
     echo "Vous n'etes pas connecte";

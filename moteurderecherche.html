@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" integrity="sha512-oHDEc8Xed4hiW6CxD7qjbnI+B07vDdX7hEPTvn9pSZO1bcRqHp8mj9pyr+8RVC2GmtEfI2Bi9Ke9Ass0as+zpg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <title>Rechercher le produit qui vous correspond</title>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
         <link rel="stylesheet" href="css/moteurderecherche.css">
@@ -12,8 +13,8 @@
             <img src="Images/Logo.png" alt="Logo du site">
             <nav>
                 <ul>
-                    <li><a href="inscription.html">S'inscrire</a></li>
-                    <li><a href="authentification.html">S'authentifier</a></li>
+                    <li><a href="inscription"><i class="fas fa-user-plus"></i> S'inscrire</a></li>
+                    <li><a href="authentification"><i class="fas fa-user"></i> S'authentifier</a></li>
                 </ul>
             </nav>
         </header>
@@ -22,22 +23,30 @@
             <form class="articlerecherche" method="post" >
                 <label for="inputrecherche" class="labelrecherche">Barre de recherche</label>
                 <input name='recherche' class="inputrecherche" id="inputrecherche" type="search">
-                <button name='buttonrecherche' class="buttonrecherche" type="submit">Recherche</button>
+                <button name='buttonrecherche' class="buttonrecherche" type="submit">
+                    <i class="fas fa-search"></i> 
+                    Recherche
+                </button>
             </form>
             <div class="filtreDistance">
                 <label for="inputlieu">Lieu</label>
                 <input class="inputlieu" id="inputlieu" type="text">
-                <label for="inputdistance">Distance maximum</label>
+                <label for="inputdistance">Distance maximum(km)</label>
                 <input class="inputdistance" id="inputdistance" type="number">
             </div>
             <div class="divFiltres">
-                <button class="buttonCroissant">Tri croissant</button>
-                <button class="buttonDecroissant">Tri decroissant</button>
+                <button class="buttonCroissant"><i class="fas fa-sort-amount-up"></i> Tri prix croissant</button>
+                <button class="buttonDecroissant"><i class="fas fa-sort-amount-up-alt"></i> Tri prix decroissant</button>
             </div>
             <section>
             </section>
         </main>
-        <footer></footer>
+        <footer>
+            <i class="fab fa-html5"></i>
+            <i class="fab fa-css3-alt"></i>
+            <i class="fab fa-js-square"></i>
+            <i class="fab fa-php"></i>
+        </footer>
         <script src="javascript/connexion.js"></script>
         <script src="javascript/moteurderecherche.js"></script>
     </body>

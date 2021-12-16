@@ -23,8 +23,11 @@ function connexion(lien){
 function lienDeposerAnnonce(){
     let annonce= document.createElement("li");
     let lien=document.createElement("a");
-    lien.href="formulaire.html";
-    let contenulien = document.createTextNode('Deposer une annonce');
+    lien.href="formulaire";
+    let icon=document.createElement("i");
+    icon.className="fas fa-plus";
+    lien.appendChild(icon);
+    let contenulien = document.createTextNode(' Deposer une annonce');
     lien.appendChild(contenulien);
     annonce.appendChild(lien);
     ul.insertBefore(annonce, liste);
@@ -33,8 +36,11 @@ function lienDeposerAnnonce(){
 function lienMesProduits(){
     let annonce= document.createElement("li");
     let lien=document.createElement("a");
-    lien.href="mesproduits.html";
-    let contenulien = document.createTextNode('Mes produits');
+    lien.href="mesproduits";
+    let icon=document.createElement("i");
+    icon.className="fas fa-store";
+    lien.appendChild(icon);
+    let contenulien = document.createTextNode(' Mes produits');
     lien.appendChild(contenulien);
     annonce.appendChild(lien);
     ul.insertBefore(annonce, liste);

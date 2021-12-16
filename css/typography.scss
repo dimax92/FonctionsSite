@@ -1,0 +1,22 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+button {
+    border: 0;
+    background: #03a9f4;
+    color: white;
+}
+input, textarea {
+    border: solid 0.1px #0000002e;
+}
+input:focus{
+    border: solid 0.1px #03a9f4;
+    background: linear-gradient(90deg, #03a9f414, transparent);
+}
+textarea:focus{
+    border: solid 0.1px #03a9f4;
+    background: linear-gradient(90deg, #03a9f414, transparent);
+}

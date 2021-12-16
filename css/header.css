@@ -40,6 +40,7 @@ header nav {
       -ms-flex-pack: center;
           justify-content: center;
   width: 100%;
+  background: #03a9f4;
 }
 
 header nav ul {
@@ -64,7 +65,8 @@ header nav ul li {
 }
 
 header nav ul li a {
-  color: black;
+  color: white;
   font-weight: bold;
+  text-decoration: none;
 }
 /*# sourceMappingURL=header.css.map */

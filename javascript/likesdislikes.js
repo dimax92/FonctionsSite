@@ -56,4 +56,6 @@ function envoiMessagesErreursLikeDislike(donnees){
     validationTotalLikeDislike(donnees, "dislike envoye", "dislikeEnvoye", ".dislikeEnvoye", divLikeDislike, "green");
     validationTotalLikeDislike(donnees, "echec envoie dislike", "echecEnvoiDislike", ".echecEnvoiDislike", divLikeDislike, "red");
     validationTotalLikeDislike(donnees, "vous avez deja mis un dislike", "dejaDislike", ".dejaDislike", divLikeDislike, "red");
+    validationTotalLikeDislike(donnees, "Vous ne pouvez pas mettre de dislike sur votre produit", "pasDislike", ".pasDislike", divLikeDislike, "red");
+    validationTotalLikeDislike(donnees, "Vous ne pouvez pas mettre de like sur votre produit", "pasLike", ".pasLike", divLikeDislike, "red");
 };

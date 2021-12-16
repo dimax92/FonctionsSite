@@ -1,4 +1,6 @@
 @import url("header.css");
+@import url("footer.css");
+@import url("typography.css");
 main {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -29,7 +31,10 @@ main .divLikeDislike {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 50%;
+  width: 100%;
+  margin: 10px;
+  border-top: solid 1px #03a9f4;
+  padding-top: 10px;
 }
 
 main .divLikeDislike .divLike {
@@ -164,6 +169,8 @@ main .divCommentaireSup {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
+  border-top: solid 1px #03a9f4;
+  padding-top: 10px;
 }
 
 main .divCommentaireSup textarea {

@@ -9,9 +9,24 @@ $connexion->query("SET NAMES utf8mb4");
 if(testAuthentification($connexion)==="Authentification valide"){
     $authentifiant=mysqli_real_escape_string($connexion, $_COOKIE["authentifiant"]);
     $idproduit=mysqli_real_escape_string($connexion, $_POST["idproduit"]);
-    $pseudo=mysqli_real_escape_string($connexion, recuperationPseudo($authentifiant, $connexion));
     $commentaire=mysqli_real_escape_string($connexion, $_POST["commentaire"]);
     
+    function recuperationidentifiantProduit($idproduit, $connexion){
+        $requeteIdentifiant="SELECT * FROM produits WHERE idproduit='$idproduit'";
+        $requeteIdentifiantsql=$connexion->query("$requeteIdentifiant");
+        while($resultatIdentifiant=mysqli_fetch_object($requeteIdentifiantsql)){
+            return $resultatIdentifiant->identifiant;
+        }
+    };
+
+    function recuperationIdentifiantUtilisateur($authentifiant, $connexion){
+        $requeteIdentifiant="SELECT * FROM inscription WHERE authentification='$authentifiant'";
+        $requeteIdentifiantsql=$connexion->query("$requeteIdentifiant");
+        while($resultatIdentifiant=mysqli_fetch_object($requeteIdentifiantsql)){
+            return $resultatIdentifiant->identifiant;
+        }
+    };
+
     function recuperationPseudo($authentifiant, $connexion){
         $requeteIdentifiant="SELECT * FROM inscription WHERE authentification='$authentifiant'";
         $requeteIdentifiantsql=$connexion->query("$requeteIdentifiant");
@@ -19,6 +34,7 @@ if(testAuthentification($connexion)==="Authentification valide"){
             return $resultatIdentifiant->pseudo;
         }
     };
+    $pseudo=mysqli_real_escape_string($connexion, recuperationPseudo($authentifiant, $connexion));
     
     function recuperationNbCommentaires($authentifiant, $connexion){
         $requeteIdentifiant="SELECT * FROM inscription WHERE authentification='$authentifiant'";
@@ -69,22 +85,26 @@ if(testAuthentification($connexion)==="Authentification valide"){
         }
     };
     
-    if(recuperationNbCommentaires($authentifiant, $connexion)>=2){
-        nbCommentairesZero($authentifiant, $connexion);
-        tempsAttente($authentifiant, $connexion);
-        echo "Vous n'avez le droit qu'a 2 commentaires par jour";
-    }else{
-        if(recuperationTempsAttente($authentifiant, $connexion)<=time()){
-            if(envoiCommentaire($idproduit, $pseudo, $commentaire, $connexion)==="envoye"){
-                nbCommentaires($authentifiant, $connexion);
-                echo "Commentaire envoye";
-            }else{
-                echo "Echec envoi commentaire";
-            }
-        }else{
+    if(recuperationidentifiantProduit($idproduit, $connexion)!==recuperationIdentifiantUtilisateur($authentifiant, $connexion)){
+        if(recuperationNbCommentaires($authentifiant, $connexion)>=2){
+            nbCommentairesZero($authentifiant, $connexion);
+            tempsAttente($authentifiant, $connexion);
             echo "Vous n'avez le droit qu'a 2 commentaires par jour";
-        }
-    };
+        }else{
+            if(recuperationTempsAttente($authentifiant, $connexion)<=time()){
+                if(envoiCommentaire($idproduit, $pseudo, $commentaire, $connexion)==="envoye"){
+                    nbCommentaires($authentifiant, $connexion);
+                    echo "Commentaire envoye";
+                }else{
+                    echo "Echec envoi commentaire";
+                }
+            }else{
+                echo "Vous n'avez le droit qu'a 2 commentaires par jour";
+            }
+        };
+    }else{
+        echo "Vous ne pouvez pas mettre de commentaire sur votre produit";
+    }
 }else{
     echo "Vous n'etes pas connecte";
 }

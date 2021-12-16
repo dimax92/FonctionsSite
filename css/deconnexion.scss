@@ -1,0 +1,22 @@
+@import url("header.css");
+@import url("footer.css");
+@import url("typography.css");
+
+html {
+    height:100%;
+}
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.labelDeconnexion {
+    font-weight: bold;
+    font-size: 20px;
+}
+.boutonDeconnexion {
+    padding: 5px;
+    border-radius: 10px;
+    margin: 20px 0px;
+}

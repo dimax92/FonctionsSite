@@ -8,12 +8,17 @@ function connexion(lien){
     xhr.open("POST", lien);
     xhr.onprogress = function() {
         if(this.response==="Authentification valide"){
-            boutonDeconnexion();
-            if(window.location.pathname !== "/formulaire.html"){
+            if(window.location.pathname !== "/formulaire"){
                 lienDeposerAnnonce();
             };
-            if(window.location.pathname !== "/mesproduits.html"){
+            if(window.location.pathname !== "/mesproduits"){
                 lienMesProduits();
+            };
+            if(window.location.pathname !== "/deconnexion"){
+                lienDeconnexion();
+            };
+            if(window.location.pathname !== "/desinscription"){
+                lienDesinscription();
             };
         }
     };
@@ -46,24 +51,79 @@ function lienMesProduits(){
     ul.insertBefore(annonce, liste);
 };
 
-function boutonDeconnexion(){
-    let deconnexion= document.createElement("button");
-    deconnexion.textContent="Deconnexion";
-    deconnexion.className="boutonDeconnexion";
-    header.insertBefore(deconnexion, nav);
-    deconnexion.addEventListener("click", ()=>{
-        functionDeconnexion("php/deconnexion.php");
-    });
+function lienDeconnexion(){
+    let annonce= document.createElement("li");
+    let lien=document.createElement("a");
+    lien.href="deconnexion";
+    let icon=document.createElement("i");
+    icon.className="fas fa-power-off";
+    lien.appendChild(icon);
+    let contenulien = document.createTextNode(' Deconnexion');
+    lien.appendChild(contenulien);
+    annonce.appendChild(lien);
+    ul.insertBefore(annonce, liste);
+    /*lien.addEventListener("click", ()=>{
+        functionDeconnexion("php/deconnexion.php")
+    })*/
 };
 
-function functionDeconnexion(lien){
+function lienDesinscription(){
+    let annonce= document.createElement("li");
+    let lien=document.createElement("a");
+    lien.href="desinscription";
+    let icon=document.createElement("i");
+    icon.className="fas fa-user-slash";
+    lien.appendChild(icon);
+    let contenulien = document.createTextNode(' Desinscription');
+    lien.appendChild(contenulien);
+    annonce.appendChild(lien);
+    ul.insertBefore(annonce, liste);
+    /*lien.addEventListener("click", ()=>{
+        functionDeconnexion("php/desinscription.php")
+    })*/
+};
+
+/*function functionDeconnexion(lien){
     let xhr = new XMLHttpRequest();
     xhr.open("POST", lien);
-    xhr.onprogress = function() {
-        console.log(this.response);
+    xhr.onloadend = function() {
+        let donnees=this.response;
     };
     xhr.send();
 };
+
+function validationIndividuelleConnexion(contenu, identifiant, position, couleurMessage){
+    let incorrect=document.createElement("p");
+    incorrect.className=identifiant;
+    incorrect.textContent=contenu;
+    incorrect.style.color=couleurMessage;
+    incorrect.style.margin="0px";
+    main.insertBefore(incorrect, position);
+};
+
+function validationTotalConnexion(donnees, resultat, creationId, identifiant, elementInsert, couleurMessage){
+    if(donnees===resultat){
+        if(!document.querySelector(identifiant)){
+            validationIndividuelleLikeDislike(donnees, creationId, elementInsert, couleurMessage);
+        }
+    }else{
+        if(document.querySelector(identifiant)){
+            document.querySelector(identifiant).remove();
+        }
+    }
+};
+
+function envoiMessagesErreursConnexion(donnees){
+    validationTotalLikeDislike(donnees, "like envoye", "likeEnvoye", ".likeEnvoye", divLikeDislike, "green");
+    validationTotalLikeDislike(donnees, "echec envoie like", "echecEnvoiLike", ".echecEnvoiLike", divLikeDislike, "red");
+    validationTotalLikeDislike(donnees, "vous avez deja mis un like", "dejaLike", ".dejaLike", divLikeDislike, "red");
+    validationTotalLikeDislike(donnees, "Vous n'etes pas connecte", "pasConnecte", ".pasConnecte", divLikeDislike, "red");
+    validationTotalLikeDislike(donnees, "dislike envoye", "dislikeEnvoye", ".dislikeEnvoye", divLikeDislike, "green");
+    validationTotalLikeDislike(donnees, "echec envoie dislike", "echecEnvoiDislike", ".echecEnvoiDislike", divLikeDislike, "red");
+    validationTotalLikeDislike(donnees, "vous avez deja mis un dislike", "dejaDislike", ".dejaDislike", divLikeDislike, "red");
+    validationTotalLikeDislike(donnees, "Vous ne pouvez pas mettre de dislike sur votre produit", "pasDislike", ".pasDislike", divLikeDislike, "red");
+    validationTotalLikeDislike(donnees, "Vous ne pouvez pas mettre de like sur votre produit", "pasLike", ".pasLike", divLikeDislike, "red");
+};*/
 
 window.addEventListener("load", ()=>{
     connexion("php/connexion.php");

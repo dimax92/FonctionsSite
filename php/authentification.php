@@ -6,8 +6,8 @@ $connexion->real_connect($host,$username,$passwd,$dbname);
 $connexion->query("SET NAMES utf8mb4");
 
 $authentifiant=hash("sha256", uniqid());
-$email=mysqli_real_escape_string($connexion, $_POST['inputemail']);
-$motdepasse=mysqli_real_escape_string($connexion, $_POST['inputmotdepasse']);
+$email=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['inputemail']));
+$motdepasse=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['inputmotdepasse']));
 
 function authentification($email, $connexion, $authentifiant){
     $requete="SELECT * FROM inscription WHERE email='$email'";
@@ -18,7 +18,7 @@ function authentification($email, $connexion, $authentifiant){
             $requeteauthentification="UPDATE inscription SET authentification = '$authentifiant' WHERE email='$email'";
             $requeteauthentification = $connexion->query("$requeteauthentification");
             if($requeteauthentification){
-                $cookieauthentifiant=setcookie("authentifiant", $authentifiant, time()+3600, NULL, NULL);
+                $cookieauthentifiant=setcookie("authentifiant", $authentifiant, time()+(24*3600), NULL, NULL);
                 if($cookieauthentifiant){
                     return "Authentification valide";
                 }else{

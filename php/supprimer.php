@@ -15,13 +15,9 @@ if(testAuthentification($connexion)==="Authentification valide"){
         while($resultat=mysqli_fetch_object($requetesqlSuppression)){
             $unlink=unlink("C:/wamp64/www/NouveauSite/Videos/".basename("$resultat->video"));
             if($unlink){
-                if(suppressionDonnees($connexion, $idproduit)==="Donnees supprime"){
-                    echo "Produit supprime";
-                }else{
-                    echo "echec";
-                }
+                return "envoye";
             }else{
-                echo "echec";
+                return "echec";
             }
         }
     };
@@ -35,8 +31,50 @@ if(testAuthentification($connexion)==="Authentification valide"){
             return "echec";
         }
     };
+
+    function suppressionCommentairesIdProduit($idproduit, $connexion){
+        $requete="DELETE FROM commentaires WHERE idproduit='$idproduit'";
+        $requetesql = $connexion->query("$requete");
+        if($requetesql){
+            return "envoye";
+        }else{
+            return "echec";
+        }
+    };
+
+    function suppressionLikesIdProduit($idproduit, $connexion){
+        $requete="DELETE FROM likes WHERE idproduit='$idproduit'";
+        $requetesql = $connexion->query("$requete");
+        if($requetesql){
+            return "envoye";
+        }else{
+            return "echec";
+        }
+    };
+
+    function suppressionDislikesIdProduit($idproduit, $connexion){
+        $requete="DELETE FROM dislikes WHERE idproduit='$idproduit'";
+        $requetesql = $connexion->query("$requete");
+        if($requetesql){
+            return "envoye";
+        }else{
+            return "echec";
+        }
+    };
     
-    suppressionFichier($connexion, $idproduit);
+    if(suppressionFichier($connexion, $idproduit)==="envoye"){
+        if(suppressionCommentairesIdProduit($idproduit, $connexion)==="envoye" AND 
+        suppressionLikesIdProduit($idproduit, $connexion)==="envoye" AND 
+        suppressionDislikesIdProduit($idproduit, $connexion)==="envoye"){
+            if(suppressionDonnees($connexion, $idproduit)==="Donnees supprime"){
+                echo "Produit supprime";
+            }
+        }else{
+            echo "echec";
+        }
+    }else{
+        echo "echec";
+    }
 }else{
     echo "Vous n'etes pas connecte";
 }

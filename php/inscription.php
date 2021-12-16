@@ -20,6 +20,16 @@ function verificationExistanceEmail($connexion, $email) {
     };
 };
 
+function verificationExistancePseudo($connexion, $pseudo) {
+    $requetePseudo="SELECT * FROM inscription WHERE pseudo='$pseudo'";
+    $requetePseudosql=$connexion->query("$requetePseudo");
+    while($resultat=mysqli_fetch_object($requetePseudosql)){
+        if($resultat->pseudo===$pseudo){
+            return "Pseudo existe";
+        }
+    };
+};
+
 function verificationPseudo(){
     if(preg_match("#[\w \W]#", $_POST['inputpseudo'])){
         return "Pseudo correct";
@@ -38,7 +48,7 @@ function verificationMotdepasse(){
     }
 };
 
-function verificationTotal($connexion, $email){
+function verificationTotal($connexion, $email, $pseudo){
     if(verificationPseudo()!=="Pseudo correct"){
         echo "  Pseudo incorrect";
     }else{
@@ -48,6 +58,11 @@ function verificationTotal($connexion, $email){
         echo "  Email existe deja";
     }else{
         echo "  Email existe pas";
+    }
+    if(verificationExistancePseudo($connexion, $pseudo)==="Pseudo existe"){
+        echo "  Pseudo existe deja";
+    }else{
+        echo "  Pseudo existe pas";
     }
     if(verificationEmail()!=="Email correct"){
         echo "  Email incorrect";
@@ -62,13 +77,13 @@ function verificationTotal($connexion, $email){
 }
 
 function Inscription($connexion, $pseudo, $email, $identifiant, $motdepasse){
-    if(verificationPseudo()==="Pseudo correct" AND verificationExistanceEmail($connexion, $email)!=="Email existe" AND verificationEmail()==="Email correct" AND verificationMotdepasse()==="Mot de passe correct"){
-        $requete="INSERT INTO inscription(identifiant, pseudo, email, motdepasse, authentification, likes, dislikes, nbcommentaires, tempsattente) VALUES ('$identifiant', '$pseudo', '$email', '$motdepasse', '', '', '', 0, 0)";
+    if(verificationPseudo()==="Pseudo correct" AND verificationExistanceEmail($connexion, $email)!=="Email existe" AND verificationExistancePseudo($connexion, $pseudo)!=="Pseudo existe" AND verificationEmail()==="Email correct" AND verificationMotdepasse()==="Mot de passe correct"){
+        $requete="INSERT INTO inscription(identifiant, pseudo, email, motdepasse, authentification, nbcommentaires, tempsattente) VALUES ('$identifiant', '$pseudo', '$email', '$motdepasse', '', 0, 0)";
         $requetesql = $connexion->query("$requete");
         echo "Inscription valide";
     }else{
         echo "Inscription echoue";
-        verificationTotal($connexion, $email);
+        verificationTotal($connexion, $email, $pseudo);
     };
 };
 

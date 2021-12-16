@@ -51,11 +51,10 @@ function validationTotalLikeDislike(donnees, resultat, creationId, identifiant, 
 function envoiMessagesErreursLikeDislike(donnees){
     validationTotalLikeDislike(donnees, "like envoye", "likeEnvoye", ".likeEnvoye", divLikeDislike, "green");
     validationTotalLikeDislike(donnees, "echec envoie like", "echecEnvoiLike", ".echecEnvoiLike", divLikeDislike, "red");
-    validationTotalLikeDislike(donnees, "vous avez deja mis un like", "dejaLike", ".dejaLike", divLikeDislike, "red");
+    validationTotalLikeDislike(donnees, "vous avez deja mis un like ou un dislike", "dejaLike", ".dejaLike", divLikeDislike, "red");
     validationTotalLikeDislike(donnees, "Vous n'etes pas connecte", "pasConnecte", ".pasConnecte", divLikeDislike, "red");
     validationTotalLikeDislike(donnees, "dislike envoye", "dislikeEnvoye", ".dislikeEnvoye", divLikeDislike, "green");
     validationTotalLikeDislike(donnees, "echec envoie dislike", "echecEnvoiDislike", ".echecEnvoiDislike", divLikeDislike, "red");
-    validationTotalLikeDislike(donnees, "vous avez deja mis un dislike", "dejaDislike", ".dejaDislike", divLikeDislike, "red");
     validationTotalLikeDislike(donnees, "Vous ne pouvez pas mettre de dislike sur votre produit", "pasDislike", ".pasDislike", divLikeDislike, "red");
     validationTotalLikeDislike(donnees, "Vous ne pouvez pas mettre de like sur votre produit", "pasLike", ".pasLike", divLikeDislike, "red");
 };

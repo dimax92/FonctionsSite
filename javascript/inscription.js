@@ -101,18 +101,27 @@ function validationTotal(inscription){
             document.querySelector(".pEmailExiste").remove();
         }
     }
-    if(inscription[3]==="Email incorrect"){
+    if(inscription[3]==="Pseudo existe deja"){
+        if(!document.querySelector(".pPseudoExiste")){
+            validationIndividuelle(inscription[3], "pPseudoExiste", pseudo);
+        }
+    }else{
+        if(document.querySelector(".pPseudoExiste")){
+            document.querySelector(".pPseudoExiste").remove();
+        }
+    }
+    if(inscription[4]==="Email incorrect"){
         if(!document.querySelector(".pEmailIncorrect")){
-            validationIndividuelle(inscription[3], "pEmailIncorrect", email);
+            validationIndividuelle(inscription[4], "pEmailIncorrect", email);
         }
     }else{
         if(document.querySelector(".pEmailIncorrect")){
             document.querySelector(".pEmailIncorrect").remove();
         }
     }
-    if(inscription[4]==="Mot de passe incorrect"){
+    if(inscription[5]==="Mot de passe incorrect"){
         if(!document.querySelector(".pMotdepasse")){
-            validationIndividuelle(inscription[4], "pMotdepasse", motdepasse);
+            validationIndividuelle(inscription[5], "pMotdepasse", motdepasse);
         }
     }else{
         if(document.querySelector(".pMotdepasse")){

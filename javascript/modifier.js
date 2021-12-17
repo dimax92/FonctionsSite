@@ -52,7 +52,8 @@ function envoiDonnees(lien, longitude, lattitude, nomLieu){
                 validationFormulaire();
             }else{
                 nonValidationFormulaire();
-            }
+            };
+            functionSitemap();
         }
     });
     let data = new FormData(form);

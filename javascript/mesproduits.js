@@ -65,7 +65,8 @@ function supprimer(lien, idproduit){
             validationFormulaire();
         }else{
             nonValidationFormulaire();
-        }
+        };
+        functionSitemap();
     }
     let data = new FormData();
     data.append("idproduit", idproduit);

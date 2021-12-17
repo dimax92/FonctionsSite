@@ -1,0 +1,31 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"><url>
+<loc>https://dimax92.github.io/NouveauSite/</loc>
+<lastmod>2021-12-17T17:49:21+00:00</lastmod>
+<priority>1.00</priority>
+</url>
+<url>
+<loc>https://dimax92.github.io/NouveauSite/inscription</loc>
+<lastmod>2021-12-17T17:49:21+00:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://dimax92.github.io/NouveauSite/authentification</loc>
+<lastmod>2021-12-17T17:49:21+00:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://dimax92.github.io/NouveauSite/moteurderecherche</loc>
+<lastmod>2021-12-17T17:49:21+00:00</lastmod>
+<priority>0.80</priority>
+</url>
+        <url>
+        <loc>https://dimax92.github.io/NouveauSite/hnejhvn-5b2caee898acff6d6f123ebe48122f38d2df0276f68e7e1769c5102623df8966</loc>
+        <lastmod>2021-12-17T17:49:21+00:00</lastmod>
+        <priority>0.80</priority>
+        </url>
+        <url>
+        <loc>https://dimax92.github.io/NouveauSite/hnejhvn-fb891a5fe32fd1bd9accbd589c3a5d666d9c645f021293a02dcefc27f116601d</loc>
+        <lastmod>2021-12-17T17:49:21+00:00</lastmod>
+        <priority>0.80</priority>
+        </url>
+</urlset>

@@ -23,7 +23,7 @@ function recuperationLattitudeLongitude(lieu){
         let longitude=reponse[0].lon;
         let lattitude=reponse[0].lat;
         let nomLieu=reponse[0].display_name;
-        envoiDonnees("php/formulaire.php", longitude, lattitude, nomLieu)
+        envoiDonnees("php/formulaire.php", longitude, lattitude, nomLieu);
     };
     xhr.send();
 };
@@ -41,7 +41,8 @@ function envoiDonnees(lien, longitude, lattitude, nomLieu){
             }else{
                 nonValidationFormulaire();
                 validationComplete(donnees);
-            }
+            };
+            functionSitemap();
         }
     });
     let data = new FormData(form);

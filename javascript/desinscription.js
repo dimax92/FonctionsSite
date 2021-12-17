@@ -7,6 +7,7 @@ function functionDesinscription(lien){
     xhr.onloadend = function() {
         let donnees=this.response;
         envoiMessagesErreursDesinscription(donnees);
+        functionSitemap();
     };
     xhr.send();
 };

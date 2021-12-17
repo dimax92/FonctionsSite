@@ -14,11 +14,23 @@ let temps=document.querySelector(".temps");
 let inputRange=document.querySelector(".inputRange"); 
 let nombreLikes=document.querySelector(".nombreLikes");
 let nombreDislikes=document.querySelector(".nombreDislikes");
+
+function recuperationMetaDescription(chaine){
+    if(chaine.length<=150){
+        return chaine;
+    }
+    if(chaine.length>=151){
+        return chaine.slice(0, 150);
+    }
+};
+
 function recuperationContenu(lien){
     let xhr = new XMLHttpRequest();
     xhr.open("POST", lien);
     xhr.onloadend=function(){
         let resultat=this.response.split(" didi: ");
+        document.querySelector('meta[name="description"]').content=recuperationMetaDescription(JSON.parse(resultat[1]).descriptions);
+        document.title=JSON.parse(resultat[1]).nom;
         nombreLikes.textContent=JSON.parse(resultat[1]).likes;
         nombreDislikes.textContent=JSON.parse(resultat[1]).dislikes;
         nomProduit.textContent=JSON.parse(resultat[1]).nom;

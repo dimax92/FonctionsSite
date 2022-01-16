@@ -1,2 +1,10 @@
  RewriteEngine On
  RewriteRule ^([\w\W]+)-([\w\W]+)$ contenu.html
+ RewriteRule ^authentification$ authentification.html
+ RewriteRule ^deconnexion$ deconnexion.html
+ RewriteRule ^desinscription$ desinscription.html
+ RewriteRule ^formulaire$ formulaire.html
+ RewriteRule ^inscription$ inscription.html
+ RewriteRule ^mesproduits$ mesproduits.html
+ RewriteRule ^modifier$ modifier.html
+ RewriteRule ^moteurderecherche$ moteurderecherche.html 

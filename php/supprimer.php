@@ -9,11 +9,11 @@ $connexion->query("SET NAMES utf8mb4");
 if(testAuthentification($connexion)==="Authentification valide"){
     $idproduit=mysqli_real_escape_string($connexion, $_POST["idproduit"]);
 
-    function suppressionFichier($connexion, $idproduit) {
+    function suppressionFichier($nomFichierUpload, $connexion, $idproduit) {
         $requeteSuppression="SELECT * FROM produits WHERE '$idproduit'= idproduit ";
         $requetesqlSuppression=$connexion->query("$requeteSuppression");
         while($resultat=mysqli_fetch_object($requetesqlSuppression)){
-            $unlink=unlink("C:/wamp64/www/NouveauSite/Videos/".basename("$resultat->video"));
+            $unlink=unlink($nomFichierUpload.basename("$resultat->video"));
             if($unlink){
                 return "envoye";
             }else{
@@ -62,7 +62,7 @@ if(testAuthentification($connexion)==="Authentification valide"){
         }
     };
     
-    if(suppressionFichier($connexion, $idproduit)==="envoye"){
+    if(suppressionFichier($nomFichierUpload, $connexion, $idproduit)==="envoye"){
         if(suppressionCommentairesIdProduit($idproduit, $connexion)==="envoye" AND 
         suppressionLikesIdProduit($idproduit, $connexion)==="envoye" AND 
         suppressionDislikesIdProduit($idproduit, $connexion)==="envoye"){

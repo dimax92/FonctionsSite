@@ -193,13 +193,13 @@ if(testAuthentification($connexion)==="Authentification valide"){
         }
     };
     
-    function envoiDonneesFichiers($nomfichier, $connexion, $identifiant, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude){
+    function envoiDonneesFichiers($nomFichierUpload, $nomfichier, $connexion, $identifiant, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude){
         $identifiante=mysqli_real_escape_string($connexion, $identifiant);
         $requete="INSERT INTO produits(identifiant, idproduit, nom, marque, video, videonom, prix, devise, descriptions, quantite, types, conditions, coordonnees, likes, dislikes, nomlieu, lattitude, longitude) 
         VALUES ('$identifiante', '$idproduit', '$nom', '$marque', '$video', '$videonom', '$prix', '$devise', '$descriptions', '$quantite', '$types', '$conditions', '$coordonnees', 0, 0, '$nomLieu', '$lattitude', '$longitude')";
         $requetesql = $connexion->query("$requete");
         if($requetesql){
-            $envoifichier=move_uploaded_file($_FILES['inputimages']['tmp_name'], "C:/wamp64/www/NouveauSite/Videos/".$nomfichier.basename($_FILES['inputimages']['name']));
+            $envoifichier=move_uploaded_file($_FILES['inputimages']['tmp_name'], $nomFichierUpload.$nomfichier.basename($_FILES['inputimages']['name']));
             if($envoifichier){
                 echo "Produit enregistre";
             }else{
@@ -224,10 +224,11 @@ if(testAuthentification($connexion)==="Authentification valide"){
     if(
         testDonnees($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu)==="conforme"
     ){
-        envoiDonneesFichiers($nomfichier, $connexion, $identifiant, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude);
+        envoiDonneesFichiers($nomFichierUpload, $nomfichier, $connexion, $identifiant, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude);
     }else{
         echo "echec";
         testDonneesIndividuelles($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu);
+        echo $nom;
     }
 }else{
     echo "Vous n'etes pas connecte";

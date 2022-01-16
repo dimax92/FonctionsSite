@@ -6,28 +6,28 @@ $connexion->real_connect($host,$username,$passwd,$dbname);
 $connexion->query("SET NAMES utf8mb4");
 
 $dateHeure=date("Y-m-d\TH:i:sP");
-$filename="C:\wamp64\www\NouveauSite\sitemap.xml";
+$filename="/var/www/html/NouveauSite/sitemap.xml";
 $handle=fopen($filename, 'w');
 
 $premierContent="<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\">";
 
 $deuxiemeContent="<url>
-<loc>https://dimax92.github.io/NouveauSite/</loc>
+<loc>https://machatvente.com/</loc>
 <lastmod>$dateHeure</lastmod>
 <priority>1.00</priority>
 </url>
 <url>
-<loc>https://dimax92.github.io/NouveauSite/inscription</loc>
+<loc>https://machatvente.com/inscription</loc>
 <lastmod>$dateHeure</lastmod>
 <priority>0.80</priority>
 </url>
 <url>
-<loc>https://dimax92.github.io/NouveauSite/authentification</loc>
+<loc>https://machatvente.com/authentification</loc>
 <lastmod>$dateHeure</lastmod>
 <priority>0.80</priority>
 </url>
 <url>
-<loc>https://dimax92.github.io/NouveauSite/moteurderecherche</loc>
+<loc>https://machatvente.com/moteurderecherche</loc>
 <lastmod>$dateHeure</lastmod>
 <priority>0.80</priority>
 </url>";
@@ -40,7 +40,7 @@ function creationContenuSitemap($connexion, $handle, $dateHeure){
         $contenu.="-$resultat->idproduit";
         $troisiemeContent="
         <url>
-        <loc>https://dimax92.github.io/NouveauSite/$contenu</loc>
+        <loc>https://machatvente.com/$contenu</loc>
         <lastmod>$dateHeure</lastmod>
         <priority>0.80</priority>
         </url>";

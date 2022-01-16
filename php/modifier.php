@@ -77,14 +77,14 @@ if(testAuthentification($connexion)==="Authentification valide"){
         }
     }
     
-    function modificationDonneesFichiers($nomfichier, $connexion, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude){
-        if(suppressionFichier($connexion, $idproduit)==="fichier supprime"){
+    function modificationDonneesFichiers($nomFichierUpload, $nomfichier, $connexion, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude){
+        if(suppressionFichier($nomFichierUpload, $connexion, $idproduit)==="fichier supprime"){
             $requete=" UPDATE produits SET nom = '$nom', marque = '$marque', video = '$video', videonom = '$videonom', prix = '$prix', devise = '$devise', 
             descriptions = '$descriptions', quantite = '$quantite', types = '$types', conditions = '$conditions', coordonnees = '$coordonnees', nomlieu = '$nomLieu', lattitude = '$lattitude', longitude = '$longitude'   
             WHERE '$idproduit'= idproduit ";
             $requetesql = $connexion->query("$requete");
             if($requetesql){
-                $envoifichier=move_uploaded_file($_FILES['inputimages']['tmp_name'], "C:/wamp64/www/NouveauSite/Videos/".$nomfichier.basename($_FILES['inputimages']['name']));
+                $envoifichier=move_uploaded_file($_FILES['inputimages']['tmp_name'], $nomFichierUpload.$nomfichier.basename($_FILES['inputimages']['name']));
                 if($envoifichier){
                     echo "Produit modifie";
                 }else{
@@ -94,15 +94,15 @@ if(testAuthentification($connexion)==="Authentification valide"){
                 echo "echec";
             }
         }else{
-            echo "echec";
+            echo "echec ";
         };
     };
     
-    function suppressionFichier($connexion, $idproduit) {
+    function suppressionFichier($nomFichierUpload, $connexion, $idproduit) {
         $requeteSuppression="SELECT * FROM produits WHERE '$idproduit'= idproduit ";
         $requetesqlSuppression=$connexion->query("$requeteSuppression");
         while($resultat=mysqli_fetch_object($requetesqlSuppression)){
-            $unlink=unlink("C:/wamp64/www/NouveauSite/Videos/".basename("$resultat->video"));
+            $unlink=unlink($nomFichierUpload.basename("$resultat->video"));
             if($unlink){
                 return "fichier supprime";
             }
@@ -125,7 +125,7 @@ if(testAuthentification($connexion)==="Authentification valide"){
         testDonneesAvecVideos($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu)==="conforme"
     ){
         //suppressionFichier($connexion, $idproduit);
-        modificationDonneesFichiers($nomfichier, $connexion, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude);
+        modificationDonneesFichiers($nomFichierUpload, $nomfichier, $connexion, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude);
     }elseif(
         testDonneesSansVideos($nom, $marque, $typeVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu)==="conforme"
     ){

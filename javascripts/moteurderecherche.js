@@ -62,7 +62,7 @@ function creationProduit(valid, valnom, valvideo, valprix, valdevise){
     lien.appendChild(titre);
     let video=document.createElement("video");
     video.className="imageproduit";
-    video.src="Videos/"+valvideo;
+    video.src="/videos/"+valvideo;
     video.muted="muted";
     lien.appendChild(video);
     sourisVideo(video);

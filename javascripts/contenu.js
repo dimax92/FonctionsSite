@@ -35,7 +35,7 @@ function recuperationContenu(lien){
         nombreDislikes.textContent=JSON.parse(resultat[1]).dislikes;
         nomProduit.textContent=JSON.parse(resultat[1]).nom;
         marque.textContent=JSON.parse(resultat[1]).marque;
-        video.src="Videos/"+JSON.parse(resultat[1]).video;
+        video.src="videos/"+JSON.parse(resultat[1]).video;
         prix.textContent=JSON.parse(resultat[1]).prix+" "+JSON.parse(resultat[1]).devise;
         description.textContent=JSON.parse(resultat[1]).descriptions;
         quantite.textContent=JSON.parse(resultat[1]).quantite;

@@ -29,7 +29,7 @@ function creationProduit(valIdProduit, valnom, valvideo, valprix, valdevise){
     divProduit.appendChild(titre);
     let video=document.createElement("video");
     video.className="imageproduit";
-    video.src="Videos/"+valvideo;
+    video.src="/videos/"+valvideo;
     divProduit.appendChild(video);
     let prix=document.createElement("p");
     prix.className="pprix";

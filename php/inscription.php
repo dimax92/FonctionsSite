@@ -1,5 +1,6 @@
 <?php
 require_once "identifiants.php";
+require_once "mail.php";
 $connexion = mysqli_init();
 $connexion->options(MYSQLI_CLIENT_SSL, 'SET AUTOCOMMIT = 0');
 $connexion->real_connect($host,$username,$passwd,$dbname);
@@ -76,10 +77,11 @@ function verificationTotal($connexion, $email, $pseudo){
     }
 }
 
-function Inscription($connexion, $pseudo, $email, $identifiant, $motdepasse){
+function inscription($connexion, $pseudo, $email, $identifiant, $motdepasse){
     if(verificationPseudo()==="Pseudo correct" AND verificationExistanceEmail($connexion, $email)!=="Email existe" AND verificationExistancePseudo($connexion, $pseudo)!=="Pseudo existe" AND verificationEmail()==="Email correct" AND verificationMotdepasse()==="Mot de passe correct"){
         $requete="INSERT INTO inscription(identifiant, pseudo, email, motdepasse, authentification, nbcommentaires, tempsattente) VALUES ('$identifiant', '$pseudo', '$email', '$motdepasse', '', 0, 0)";
         $requetesql = $connexion->query("$requete");
+        envoiMail($email);
         echo "Inscription valide";
     }else{
         echo "Inscription echoue";
@@ -87,7 +89,7 @@ function Inscription($connexion, $pseudo, $email, $identifiant, $motdepasse){
     };
 };
 
-Inscription($connexion, $pseudo, $email, $identifiant, $motdepasse);
+inscription($connexion, $pseudo, $email, $identifiant, $motdepasse);
 
 $connexion->close();
 ?>

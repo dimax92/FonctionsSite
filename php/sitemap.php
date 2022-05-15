@@ -30,6 +30,11 @@ $deuxiemeContent="<url>
 <loc>https://machatvente.com/moteurderecherche</loc>
 <lastmod>$dateHeure</lastmod>
 <priority>0.80</priority>
+</url>
+<url>
+<loc>https://machatvente.com/blogue</loc>
+<lastmod>$dateHeure</lastmod>
+<priority>0.80</priority>
 </url>";
 
 function creationContenuSitemap($connexion, $handle, $dateHeure){
@@ -49,14 +54,72 @@ function creationContenuSitemap($connexion, $handle, $dateHeure){
     return "Ok";
 };
 
+$quatriemeContent="<url>
+<loc>https://machatvente.com/motdepasseoublie</loc>
+<lastmod>$dateHeure</lastmod>
+<priority>0.64</priority>
+</url>
+<url>
+<loc>https://machatvente.com/vendrevoitureoccasion</loc>
+<lastmod>$dateHeure</lastmod>
+<priority>0.64</priority>
+</url>
+<url>
+<loc>https://machatvente.com/vendrechaussures</loc>
+<lastmod>$dateHeure</lastmod>
+<priority>0.64</priority>
+</url>
+<url>
+<loc>https://machatvente.com/vendresmartphone</loc>
+<lastmod>$dateHeure</lastmod>
+<priority>0.64</priority>
+</url>
+<url>
+<loc>https://machatvente.com/vendremoto</loc>
+<lastmod>$dateHeure</lastmod>
+<priority>0.64</priority>
+</url>
+<url>
+<loc>https://machatvente.com/vendreordinateur</loc>
+<lastmod>$dateHeure</lastmod>
+<priority>0.64</priority>
+</url>
+<url>
+<loc>https://machatvente.com/vendreplaystation</loc>
+<lastmod>$dateHeure</lastmod>
+<priority>0.64</priority>
+</url>
+<url>
+<loc>https://machatvente.com/vendresacamain</loc>
+<lastmod>$dateHeure</lastmod>
+<priority>0.64</priority>
+</url>
+<url>
+<loc>https://machatvente.com/vendrecasqueaudio</loc>
+<lastmod>$dateHeure</lastmod>
+<priority>0.64</priority>
+</url>
+<url>
+<loc>https://machatvente.com/vendrepantalon</loc>
+<lastmod>$dateHeure</lastmod>
+<priority>0.64</priority>
+</url>
+<url>
+<loc>https://machatvente.com/vendretshirt</loc>
+<lastmod>$dateHeure</lastmod>
+<priority>0.64</priority>
+</url>";
+
 $dernierContent="
 </urlset>";
 
-function creationTotalSitemap($connexion, $handle, $dateHeure, $premierContent, $deuxiemeContent, $dernierContent){
+function creationTotalSitemap($connexion, $handle, $dateHeure, $premierContent, $deuxiemeContent, $quatriemeContent, $dernierContent){
     if(fwrite($handle, $premierContent)){
         if(fwrite($handle, $deuxiemeContent)){
             if(creationContenuSitemap($connexion, $handle, $dateHeure)==="Ok"){
-                fwrite($handle, $dernierContent);
+                if(fwrite($handle, $quatriemeContent)){
+                    fwrite($handle, $dernierContent);
+                }
             }
         }
     }
@@ -73,7 +136,7 @@ function remplacementEspacesTirets($espaces){
     return implode("-", $nouveauEspaces);
 };
 
-creationTotalSitemap($connexion, $handle, $dateHeure, $premierContent, $deuxiemeContent, $dernierContent);
+creationTotalSitemap($connexion, $handle, $dateHeure, $premierContent, $deuxiemeContent, $quatriemeContent, $dernierContent);
 
 fclose($handle);
 

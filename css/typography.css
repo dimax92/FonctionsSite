@@ -16,6 +16,10 @@ body {
   height: 100%;
 }
 
+main {
+  margin: 0px 10px;
+}
+
 button {
   border: 0;
   background: #03a9f4;

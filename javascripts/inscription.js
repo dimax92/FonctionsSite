@@ -5,6 +5,14 @@ let email=document.querySelector("#email");
 let motdepasse=document.querySelector("#motdepasse");
 let boutonConnexion=document.querySelector("#inscription");
 let inscription="";
+
+function envoiCode(lien){
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", lien);
+    let data = new FormData(formulaire);
+    xhr.send(data);
+};
+
 function envoiDonnees(lien){
     const form = document.querySelector("form");
     let xhr = new XMLHttpRequest();
@@ -13,7 +21,8 @@ function envoiDonnees(lien){
         xhr.onprogress = function() {
             inscription=this.response.split("  ");
             if(this.response==="Inscription valide"){
-                validationFormulaire();
+                document.location.href = 'https://machatvente.com/confirmation';
+                //validationFormulaire();
                 validationTotal(inscription);
             }else{
                 nonValidationFormulaire();
@@ -132,5 +141,6 @@ function validationTotal(inscription){
 
 boutonConnexion.addEventListener("click", ()=>{
         envoiDonnees("php/inscription.php");
+        //envoiCode("php/envoicode.php");
 });
 formulaire.addEventListener("submit",(e)=>{e.preventDefault();});

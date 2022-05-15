@@ -8,3 +8,19 @@
  RewriteRule ^mesproduits$ mesproduits.html
  RewriteRule ^modifier$ modifier.html
  RewriteRule ^moteurderecherche$ moteurderecherche.html 
+ RewriteRule ^confirmation$ confirmation.html
+ RewriteRule ^motdepasseoublie$ motdepasseoublie.html
+ RewriteRule ^confirmationoublie$ confirmationoublie.html
+ RewriteRule ^profil$ modifierprofil.html
+ RewriteRule ^confirmationmodifie$ confirmationmodifie.html
+ RewriteRule ^blogue$ blogueur/blog.html
+ RewriteRule ^vendrevoitureoccasion$ blogueur/vendrevoitureoccasion.html
+ RewriteRule ^vendrechaussures$ blogueur/vendrechaussures.html
+ RewriteRule ^vendresmartphone$ blogueur/vendresmartphone.html
+ RewriteRule ^vendremoto$ blogueur/vendremoto.html
+ RewriteRule ^vendreordinateur$ blogueur/vendreordinateur.html
+ RewriteRule ^vendreplaystation$ blogueur/vendreplaystation.html
+ RewriteRule ^vendresacamain$ blogueur/vendresacamain.html
+ RewriteRule ^vendrecasqueaudio$ blogueur/vendrecasqueaudio.html
+ RewriteRule ^vendrepantalon$ blogueur/vendrepantalon.html
+ RewriteRule ^vendretshirt$ blogueur/vendretshirt.html

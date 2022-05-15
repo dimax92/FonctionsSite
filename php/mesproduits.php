@@ -7,7 +7,7 @@ $connexion->real_connect($host,$username,$passwd,$dbname);
 $connexion->query("SET NAMES utf8mb4");
 
 //if(testAuthentification($connexion)==="Authentification valide"){
-    $authentifiant=mysqli_real_escape_string($connexion, $_COOKIE["authentifiant"]);
+    $authentifiant=htmlspecialchars(mysqli_real_escape_string($connexion, $_COOKIE["authentifiant"]));
 
     $requeteIdentifiant="SELECT * FROM inscription WHERE authentification='$authentifiant'";
     $requeteIdentifiantsql=$connexion->query("$requeteIdentifiant");
@@ -17,7 +17,7 @@ $connexion->query("SET NAMES utf8mb4");
     };
     
     function recuperationDonnees($identifiant, $connexion){
-        $identifiante=mysqli_real_escape_string($connexion, $identifiant);
+        $identifiante=htmlspecialchars(mysqli_real_escape_string($connexion, $identifiant));
         $requete="SELECT * FROM produits WHERE '$identifiante'= identifiant";
         $requetesql=$connexion->query("$requete");
         while($resultat=mysqli_fetch_object($requetesql)){

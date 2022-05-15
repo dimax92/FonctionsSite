@@ -1,6 +1,7 @@
 <?php
 require_once "identifiants.php";
-require_once "mail.php";
+require_once "cryptage.php";
+require_once "envoicode.php";
 $connexion = mysqli_init();
 $connexion->options(MYSQLI_CLIENT_SSL, 'SET AUTOCOMMIT = 0');
 $connexion->real_connect($host,$username,$passwd,$dbname);
@@ -9,13 +10,25 @@ $connexion->query("SET NAMES utf8mb4");
 $identifiant=hash("sha256", uniqid());
 $pseudo=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['inputpseudo']));
 $email=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['inputemail']));
-$motdepasse=password_hash(mysqli_real_escape_string($connexion, $_POST['inputmotdepasse']), PASSWORD_DEFAULT);
+$emailCrypt=cryptageChaineFinal($tableauOrdonnee, $email, $tableauValeursAjoutees);
+$motdepasse=password_hash(htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['inputmotdepasse'])), PASSWORD_DEFAULT);
 
-function verificationExistanceEmail($connexion, $email) {
-    $requeteEmail="SELECT * FROM inscription WHERE email='$email'";
+function recuperationCryptEmail($connexion, $tableauOrdonnee, $email){
+    $requeteCrypt="SELECT * FROM inscription";
+    $requeteCryptsql = $connexion->query("$requeteCrypt");
+    while($resultatCrypt=mysqli_fetch_object($requeteCryptsql)){
+        if($email === decryptageChaineFinal($resultatCrypt->email, $tableauOrdonnee)){
+            return $resultatCrypt->email;
+        };
+    }
+};
+$emailVerif = recuperationCryptEmail($connexion, $tableauOrdonnee, $email);
+
+function verificationExistanceEmail($connexion, $email, $emailVerif) {
+    $requeteEmail="SELECT * FROM inscription WHERE email='$emailVerif'";
     $requeteEmailsql=$connexion->query("$requeteEmail");
     while($resultat=mysqli_fetch_object($requeteEmailsql)){
-        if($resultat->email===$email){
+        if($resultat->email===$emailVerif ){
             return "Email existe";
         }
     };
@@ -44,18 +57,22 @@ function verificationEmail(){
 };
 
 function verificationMotdepasse(){
-    if(preg_match("#[\w\W]{8,}#", $_POST['inputmotdepasse']) AND preg_match("#[A-Z]{1,}[a-z]{1,}[0-9]{1,}[\W]{1,}#", $_POST['inputmotdepasse'])){
+    if(preg_match("#[\w\W]{8,}#", $_POST['inputmotdepasse']) 
+    AND preg_match("#[A-Z]{1,}#", $_POST['inputmotdepasse']) 
+    AND preg_match("#[a-z]{1,}#", $_POST['inputmotdepasse']) 
+    AND preg_match("#[0-9]{1,}#", $_POST['inputmotdepasse']) 
+    AND preg_match("#[\W]{1,}#", $_POST['inputmotdepasse'])){
         return "Mot de passe correct";
     }
 };
 
-function verificationTotal($connexion, $email, $pseudo){
+function verificationTotal($connexion, $email, $pseudo, $emailVerif){
     if(verificationPseudo()!=="Pseudo correct"){
         echo "  Pseudo incorrect";
     }else{
         echo "  Pseudo correct";
     }
-    if(verificationExistanceEmail($connexion, $email)==="Email existe"){
+    if(verificationExistanceEmail($connexion, $email, $emailVerif)==="Email existe"){
         echo "  Email existe deja";
     }else{
         echo "  Email existe pas";
@@ -77,19 +94,20 @@ function verificationTotal($connexion, $email, $pseudo){
     }
 }
 
-function inscription($connexion, $pseudo, $email, $identifiant, $motdepasse){
-    if(verificationPseudo()==="Pseudo correct" AND verificationExistanceEmail($connexion, $email)!=="Email existe" AND verificationExistancePseudo($connexion, $pseudo)!=="Pseudo existe" AND verificationEmail()==="Email correct" AND verificationMotdepasse()==="Mot de passe correct"){
-        $requete="INSERT INTO inscription(identifiant, pseudo, email, motdepasse, authentification, nbcommentaires, tempsattente) VALUES ('$identifiant', '$pseudo', '$email', '$motdepasse', '', 0, 0)";
+function inscription($connexion, $pseudo, $email, $emailCrypt, $identifiant, $motdepasse, $emailVerif){
+    if(verificationPseudo()==="Pseudo correct" AND verificationExistanceEmail($connexion, $email, $emailVerif)!=="Email existe" AND verificationExistancePseudo($connexion, $pseudo)!=="Pseudo existe" AND verificationEmail()==="Email correct" AND verificationMotdepasse()==="Mot de passe correct"){
+        $requete="INSERT INTO inscription(identifiant, pseudo, email, motdepasse, authentification, nbcommentaires, tempsattente) VALUES ('$identifiant', '$pseudo', '$emailCrypt', '$motdepasse', '', 0, 0)";
         $requetesql = $connexion->query("$requete");
-        envoiMail($email);
+        suppressionCodePerime($connexion);
+        envoiCode($connexion, $email, $emailCrypt);
         echo "Inscription valide";
     }else{
         echo "Inscription echoue";
-        verificationTotal($connexion, $email, $pseudo);
+        verificationTotal($connexion, $email, $pseudo, $emailVerif);
     };
 };
 
-inscription($connexion, $pseudo, $email, $identifiant, $motdepasse);
+inscription($connexion, $pseudo, $email, $emailCrypt, $identifiant, $motdepasse, $emailVerif);
 
 $connexion->close();
 ?>

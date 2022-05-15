@@ -20,6 +20,9 @@ function connexion(lien){
             if(window.location.pathname !== "/desinscription"){
                 lienDesinscription();
             };
+            if(window.location.pathname !== "/profil"){
+                lienProfil();
+            };
         }
     };
     xhr.send();
@@ -81,6 +84,19 @@ function lienDesinscription(){
     /*lien.addEventListener("click", ()=>{
         functionDeconnexion("php/desinscription.php")
     })*/
+};
+
+function lienProfil(){
+    let annonce= document.createElement("li");
+    let lien=document.createElement("a");
+    lien.href="profil";
+    let icon=document.createElement("i");
+    icon.className="fas fa-solid fa-address-card";
+    lien.appendChild(icon);
+    let contenulien = document.createTextNode(' Profil');
+    lien.appendChild(contenulien);
+    annonce.appendChild(lien);
+    ul.insertBefore(annonce, liste);
 };
 
 /*function functionDeconnexion(lien){

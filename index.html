@@ -7,12 +7,33 @@
         <meta name="robots" content="index, follow"/>
         <meta name="description" content="Vous souhaitez avoir une vitrine pour vos produits en ligne ou
         cherchez le produit qui vous ferais plaisir. Se site est fait pour vous. ">
-        <title>Site d'annonces produits par videos</title>
+        <title>Site d'annonces gratuites de produits par videos</title>
+        <link rel="icon" type="image/png" href="Images/Logo.png" />
         <link rel="canonical" href="https://machatvente.com" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
         <link rel="stylesheet" href="css/index.css">
     </head>
     <body>
+        <div class="triangle">
+            <div class="droit premiereface">
+                <p>M</p>
+            </div>
+            <div class="droit deuxiemeface">
+                <p>A</p>
+            </div>
+            <div class="droit troisiemeface">
+                <p>V</p>
+            </div>
+            <div class="inverse premierefaceinverse">
+                <p>M</p>
+            </div>
+            <div class="inverse deuxiemefaceinverse">
+                <p>A</p>
+            </div>
+            <div class="inverse troisiemefaceinverse">
+                <p>V</p>
+            </div>
+        </div>
         <header>
             <img src="Images/Logo.png" alt="Logo du site">
             <nav>
@@ -20,6 +41,7 @@
                     <li><a href="inscription"><i class="fas fa-user-plus"></i> S'inscrire</a></li>
                     <li><a href="authentification"><i class="fas fa-user"></i> S'authentifier</a></li>
                     <li><a href="moteurderecherche"><i class="fas fa-search"></i> Rechercher</a></li>
+                    <li><a href="blogue"><i class="fas fa-solid fa-blog"></i> Blog</a></li>
                 </ul>
             </nav>
         </header>
@@ -39,8 +61,8 @@
                 <h2>Comment deposer une annonce</h2>
                 <h3>S'inscrire</h3>
                 <p>Pour s'inscrire c'est très simple. Il vous faudra d'abord accéder a la page S'inscrire. 
-                    Une fois que vous êtes sur la page d'inscription il vous faudra remplir le premier champ 
-                    avec votre email et le deuxième champ avec un mot de passe que vous aurez créer, ce mot de 
+                    Une fois que vous êtes sur la page d'inscription il vous faudra remplir le premier champ avec votre pseudo, le deuxieme champ 
+                    avec votre email et le troisieme champ avec un mot de passe que vous aurez créer, ce mot de 
                     passe devra contenir au moins huit caractères, une majuscule, une minuscule, un chiffre et 
                     un caractere spéciale pour pouvoir être valide. Et pour finir, appuyez sur le bouton "S'inscrire".
                      Apres cela si il y a marque "Inscrit" en haut du formulaire cela voudra dire que vous êtes inscrit, 
@@ -61,8 +83,8 @@
                     Pour déposer une annonce il faut d'abord accéder a la page "Déposer une annonce". 
                     Une fois que vous êtes sur la page, il vous faudra remplir le formulaire avec le nom du produit, 
                     la marque du produit, une video qui ne doit pas depasser 100mb, le prix du produit, la devise avec 
-                    laquelle vous souhaitez être paye, la description complète du produit, la quantité de produits que 
-                    vous êtes prêt a vendre, le type de produit(ordinateur, pantalon, …), la condition dans la quelle 
+                    laquelle vous souhaitez être paye, la description complète du produit, les details du produit en cliquant sur "+" a droite de "Details du produit", 
+                    la quantité de produits que vous êtes prêt a vendre, le type de produit(ordinateur, pantalon, …), la condition dans la quelle 
                     vous vendez le produit(neuf, occasion, …) et enfin les coordonnées avec lesquelles ont peut vous 
                     contacter pour pouvoir conclure ou négocier la vente du dit produit. Une fois que tous ces champs 
                     sont tous remplies et correctement remplies vous devrez appuyer sur le bouton "Mettre en ligne". 
@@ -107,6 +129,7 @@
             <i class="fab fa-js-square"></i>
             <i class="fab fa-php"></i>
         </footer>
+        <script src="javascripts/loadingspinner.js"></script>
         <script src="javascripts/erreur.js"></script>
         <script src="javascripts/connexion.js"></script>
     </body>

@@ -6,7 +6,7 @@ require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
-function envoiMail($destinataire){
+function envoiMail($destinataire, $message){
     $mail = new PHPMailer(true);
     try {
         //$mail->SMTPDebug = 2;
@@ -23,7 +23,7 @@ function envoiMail($destinataire){
         $mail->AddAddress($destinataire);
         $mail->Subject = 'confirmation';
         $mail->IsHTML(TRUE);
-        $mail->Body = '<html><body><p>Confirmation adresse mail</p></body></html>';
+        $mail->Body = $message;
         $mail->AddCustomHeader("List-Unsubscribe: <mailto:contact@machatvente.com?subject=Unsubscribe>, <http://machatvente.com/unsubscribe>");
         $mail->Send();
         return "envoye";

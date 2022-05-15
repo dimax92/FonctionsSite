@@ -11,36 +11,53 @@ let quantite=document.querySelector("#inputquantite");
 let type=document.querySelector("#inputcategorie");
 let condition=document.querySelector("#inputcondition");
 let coordonnees=document.querySelector("#inputcoordonnees");
-let nomlieu=document.querySelector("#nomlieu");
+let nomLieus=document.querySelector("#nomlieu");
 let boutonEnvoie=document.querySelector("#buttonenvoyer");
 let donnees="";
+let longitude="";
+let lattitude="";
+let nomlieu="";
+let plus = document.querySelector(".fa-plus");
+let divCaracteristique= document.querySelector(".divCaracteristique");
 
 function recuperationLattitudeLongitude(lieu){
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "https://nominatim.openstreetmap.org/search?format=json&limit=1&q="+lieu);
     xhr.onloadend = function() {
         let reponse=JSON.parse(this.response);
-        let longitude=reponse[0].lon;
-        let lattitude=reponse[0].lat;
-        let nomLieu=reponse[0].display_name;
-        envoiDonnees("php/formulaire.php", longitude, lattitude, nomLieu);
+        if(reponse.length >= 1){
+            longitude=reponse[0].lon;
+            lattitude=reponse[0].lat;
+            nomlieu=reponse[0].display_name;
+        };
+        envoiDonnees("php/formulaire.php");
     };
     xhr.send();
 };
 
-function envoiDonnees(lien, longitude, lattitude, nomLieu){
+function envoiDonnees(lien){
     const form = document.querySelector("form");
     let xhr = new XMLHttpRequest();
     xhr.open("POST", lien);
+    let progression= document.createElement("progress");
+    progression.className="progression";
+    main.insertBefore(progression, formulaire);
     xhr.upload.addEventListener("progress", (e) =>{
+        progression.max=e.total*1.2;
+        progression.value=e.loaded;
         xhr.onloadend = function() {
-            donnees=this.response.split("!");
-            if(this.response==="Produit enregistre"){
-                validationFormulaire();
-                validationComplete(donnees);
-            }else{
-                nonValidationFormulaire();
-                validationComplete(donnees);
+            if(e.loaded===e.total && this.status===200){
+                document.querySelector(".progression").value=e.total*1.2;
+                let progression=document.querySelector(".progression");
+                main.removeChild(progression);
+                donnees=this.response.split("!");
+                if(this.response==="Produit enregistre"){
+                    validationFormulaire();
+                    validationComplete(donnees);
+                }else{
+                    nonValidationFormulaire();
+                    validationComplete(donnees);
+                };
             };
             functionSitemap();
         }
@@ -48,7 +65,8 @@ function envoiDonnees(lien, longitude, lattitude, nomLieu){
     let data = new FormData(form);
     data.append("longitude", longitude);
     data.append("lattitude", lattitude);
-    data.append("nomlieu", nomLieu);
+    data.append("nomlieu", nomlieu);
+    data.append("details", JSON.stringify(creationObjet()));
     xhr.send(data);
 };
 
@@ -121,7 +139,7 @@ function validationComplete(donnees){
     validationTotal(donnees, 9, "Categorie incorrect", "categorieIncorrect", ".categorieIncorrect", type);
     validationTotal(donnees, 10, "Condition incorrect", "conditionIncorrect", ".conditionIncorrect", condition);
     validationTotal(donnees, 11, "Coordonnees incorrect", "coordonneesIncorrect", ".coordonneesIncorrect", coordonnees);
-    validationTotal(donnees, 12, "Coordonnees lieu incorrect", "coordonneesLieuIncorrect", ".coordonneesLieuIncorrect", nomlieu);
+    validationTotal(donnees, 12, "Coordonnees lieu incorrect", "coordonneesLieuIncorrect", ".coordonneesLieuIncorrect", nomLieus);
 };
 
 function validationTotal(donnees, numero, resultat, creationId, identifiant, elementInsert){
@@ -137,7 +155,9 @@ function validationTotal(donnees, numero, resultat, creationId, identifiant, ele
 };
 
 boutonEnvoie.addEventListener("click", ()=>{
-        recuperationLattitudeLongitude(nomlieu.value);
+    if(!document.querySelector(".progression")){
+        recuperationLattitudeLongitude(nomLieus.value);
+    };
 });
 
 formulaire.addEventListener("submit",(e)=>{
@@ -146,4 +166,37 @@ formulaire.addEventListener("submit",(e)=>{
 
 video.addEventListener('input',()=>{
     labelimages.innerText=video.value;
+});
+
+function creationCaracteristique(){
+    let nouveauInput = document.createElement("div");
+    nouveauInput.className="listeCaracteristiques";
+    divCaracteristique.appendChild(nouveauInput);
+    let suppCaracteristique=document.createElement("i");
+    suppCaracteristique.className="fas suppCaracteristique fa-solid fa-plus";
+    nouveauInput.appendChild(suppCaracteristique);
+    let nomCaracteristique=document.createElement("input");
+    nomCaracteristique.className="nomCaracteristique";
+    nouveauInput.appendChild(nomCaracteristique);
+    let contenuCaracteristique=document.createElement("input");
+    contenuCaracteristique.className="contenuCaracteristique";
+    nouveauInput.appendChild(contenuCaracteristique);
+    suppCaracteristique.addEventListener("click",()=>{
+        nouveauInput.remove();
+    });
+};
+
+function creationObjet(){
+    let objetCaracteristiques = new Object();
+    for(i=0; i<=divCaracteristique.children.length-1; i++){
+        let objetCaracteristiqueSup = new Object();
+        objetCaracteristiqueSup["nom"] = divCaracteristique.children[i].children[1].value;
+        objetCaracteristiqueSup["contenu"] = divCaracteristique.children[i].children[2].value;
+        objetCaracteristiques[i] = objetCaracteristiqueSup;
+    };
+    return objetCaracteristiques;
+};
+
+plus.addEventListener("click", ()=>{
+    creationCaracteristique();
 });

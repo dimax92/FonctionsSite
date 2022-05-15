@@ -7,19 +7,31 @@ function envoiAuthentification(lien){
     let xhr = new XMLHttpRequest();
     xhr.open("POST", lien);
     xhr.upload.addEventListener("progress", (e) =>{
-        console.log(e);
         xhr.onprogress = function() {
             if(this.response==="Authentification valide"){
                 validationFormulaire();
+                if(window.location.pathname !== "/formulaire"){
+                    lienDeposerAnnonce();
+                };
+                if(window.location.pathname !== "/mesproduits"){
+                    lienMesProduits();
+                };
+                if(window.location.pathname !== "/deconnexion"){
+                    lienDeconnexion();
+                };
+                if(window.location.pathname !== "/desinscription"){
+                    lienDesinscription();
+                };
+                if(window.location.pathname !== "/profil"){
+                    lienProfil();
+                };
             }else{
                 nonValidationFormulaire();
             }
         }
     });
-    console.log(xhr.response);
     let data = new FormData(form);
     xhr.send(data);
-    console.log(data);
 };
 
 function validation(){
@@ -32,6 +44,7 @@ function validation(){
     main.children[1].style.fontSize="2em";
     main.children[1].style.margin="0em";
     main.children[1].style.fontWeight="bold";
+    main.children[1].style.textAlign="center";
 };
 
 function nonValidation(){
@@ -44,6 +57,7 @@ function nonValidation(){
     main.children[1].style.fontSize="2em";
     main.children[1].style.margin="0em";
     main.children[1].style.fontWeight="bold";
+    main.children[1].style.textAlign="center";
 };
 
 function nonValidationFormulaire(){

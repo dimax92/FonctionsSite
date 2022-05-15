@@ -1,19 +1,35 @@
 let main=document.querySelector("main");
 let formulaire=document.querySelector("form");
+let nom=document.querySelector("#inputnom");
+let marque=document.querySelector("#inputmarque");
 let labelimages=document.querySelector("#labelimages");
 let video=document.querySelector("#images");
-let nomlieu=document.querySelector("#nomlieu");
+let prix=document.querySelector("#inputprix");
+let devise=document.querySelector("#inputdevise");
+let caracteristique=document.querySelector("#inputcaracteristique");
+let quantite=document.querySelector("#inputquantite");
+let categorie=document.querySelector("#inputcategorie");
+let condition=document.querySelector("#inputcondition");
+let coordonnees=document.querySelector("#inputcoordonnees");
+let nomLieus=document.querySelector("#nomlieu");
 let boutonEnvoie=document.querySelector("#buttonenvoyer");
+let longitude="";
+let lattitude="";
+let nomlieu="";
+let plus = document.querySelector(".fa-plus");
+let divCaracteristique= document.querySelector(".divCaracteristique");
 
 function recuperationLattitudeLongitude(lieu){
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "https://nominatim.openstreetmap.org/search?format=json&limit=1&q="+lieu);
     xhr.onloadend = function() {
         let reponse=JSON.parse(this.response);
-        let longitude=reponse[0].lon;
-        let lattitude=reponse[0].lat;
-        let nomLieu=reponse[0].display_name;
-        envoiDonnees("php/modifier.php", longitude, lattitude, nomLieu)
+        if(reponse.length >= 1){
+            longitude=reponse[0].lon;
+            lattitude=reponse[0].lat;
+            nomlieu=reponse[0].display_name;
+        };
+        envoiDonnees("php/modifier.php");
     };
     xhr.send();
 };
@@ -23,17 +39,21 @@ function recuperationContenu(lien){
     xhr.open("POST", lien);
     xhr.onloadend=function(){
         let resultat=this.response.split(" didi: ");
-        formulaire.children[1].value=JSON.parse(resultat[1]).nom;
-        formulaire.children[3].value=JSON.parse(resultat[1]).marque;
-        formulaire.children[4].innerText=JSON.parse(resultat[1]).videonom;
-        formulaire.children[7].value=JSON.parse(resultat[1]).prix;
-        formulaire.children[9].value=JSON.parse(resultat[1]).devise;
-        formulaire.children[11].value=JSON.parse(resultat[1]).descriptions;
-        formulaire.children[13].value=JSON.parse(resultat[1]).quantite;
-        formulaire.children[15].value=JSON.parse(resultat[1]).types;
-        formulaire.children[17].value=JSON.parse(resultat[1]).conditions;
-        formulaire.children[19].value=JSON.parse(resultat[1]).coordonnees;
-        formulaire.children[21].value=JSON.parse(resultat[1]).nomlieu;
+        nom.value=JSON.parse(resultat[1]).nom;
+        marque.value=JSON.parse(resultat[1]).marque;
+        labelimages.innerText=JSON.parse(resultat[1]).videonom;
+        prix.value=JSON.parse(resultat[1]).prix;
+        devise.value=JSON.parse(resultat[1]).devise;
+        caracteristique.value=JSON.parse(resultat[1]).descriptions;
+        quantite.value=JSON.parse(resultat[1]).quantite;
+        categorie.value=JSON.parse(resultat[1]).types;
+        condition.value=JSON.parse(resultat[1]).conditions;
+        coordonnees.value=JSON.parse(resultat[1]).coordonnees;
+        nomLieus.value=JSON.parse(resultat[1]).nomlieu;
+        let details = JSON.parse(resultat[1]).details;
+        for(i=0; i<=Object.keys(details).length-1; i++){
+            creationCaracteristiqueModifie(details[i].nom, details[i].contenu);
+        };
     };
     let data = new FormData();
     data.append("idproduit", window.location.search.split("=")[1]);
@@ -41,17 +61,28 @@ function recuperationContenu(lien){
 };
 recuperationContenu("php/contenu.php");
 
-function envoiDonnees(lien, longitude, lattitude, nomLieu){
+function envoiDonnees(lien){
     const form = document.querySelector("form");
     let xhr = new XMLHttpRequest();
     xhr.open("POST", lien);
+    let progression= document.createElement("progress");
+    progression.className="progression";
+    main.insertBefore(progression, formulaire);
     xhr.upload.addEventListener("progress", (e) =>{
-        console.log(e);
-        xhr.onprogress = function() {
-            if(this.response==="Produit modifie"){
-                validationFormulaire();
-            }else{
-                nonValidationFormulaire();
+        progression.max=e.total*1.2;
+        progression.value=e.loaded;
+        xhr.onloadend = function() {
+            if(e.loaded===e.total && this.status===200){
+                document.querySelector(".progression").value=e.total*1.2;
+                let progression=document.querySelector(".progression");
+                main.removeChild(progression);
+                if(this.response==="Produit modifie"){
+                    validationFormulaire();
+                    validationComplete(donnees);
+                }else{
+                    nonValidationFormulaire();
+                    validationComplete(donnees);
+                };
             };
             functionSitemap();
         }
@@ -60,7 +91,8 @@ function envoiDonnees(lien, longitude, lattitude, nomLieu){
     data.append("idproduit", window.location.search.split("=")[1]);
     data.append("longitude", longitude);
     data.append("lattitude", lattitude);
-    data.append("nomlieu", nomLieu);
+    data.append("nomlieu", nomlieu);
+    data.append("details", JSON.stringify(creationObjet()));
     xhr.send(data);
 };
 
@@ -113,7 +145,7 @@ function validationFormulaire(){
 };
 
 boutonEnvoie.addEventListener("click", ()=>{
-    recuperationLattitudeLongitude(nomlieu.value);
+    recuperationLattitudeLongitude(nomLieus.value);
 });
 
 formulaire.addEventListener("submit",(e)=>{
@@ -122,4 +154,57 @@ formulaire.addEventListener("submit",(e)=>{
 
 video.addEventListener('input',()=>{
     labelimages.innerText=video.value;
+});
+
+function creationCaracteristiqueModifie(nom, contenu){
+    let nouveauInput = document.createElement("div");
+    nouveauInput.className="listeCaracteristiques";
+    divCaracteristique.appendChild(nouveauInput);
+    let suppCaracteristique=document.createElement("i");
+    suppCaracteristique.className="fas suppCaracteristique fa-solid fa-plus";
+    nouveauInput.appendChild(suppCaracteristique);
+    let nomCaracteristique=document.createElement("input");
+    nomCaracteristique.className="nomCaracteristique";
+    nomCaracteristique.value=nom;
+    nouveauInput.appendChild(nomCaracteristique);
+    let contenuCaracteristique=document.createElement("input");
+    contenuCaracteristique.className="contenuCaracteristique";
+    contenuCaracteristique.value=contenu;
+    nouveauInput.appendChild(contenuCaracteristique);
+    suppCaracteristique.addEventListener("click",()=>{
+        nouveauInput.remove();
+    });
+};
+
+function creationCaracteristique(){
+    let nouveauInput = document.createElement("div");
+    nouveauInput.className="listeCaracteristiques";
+    divCaracteristique.appendChild(nouveauInput);
+    let suppCaracteristique=document.createElement("i");
+    suppCaracteristique.className="fas suppCaracteristique fa-solid fa-plus";
+    nouveauInput.appendChild(suppCaracteristique);
+    let nomCaracteristique=document.createElement("input");
+    nomCaracteristique.className="nomCaracteristique";
+    nouveauInput.appendChild(nomCaracteristique);
+    let contenuCaracteristique=document.createElement("input");
+    contenuCaracteristique.className="contenuCaracteristique";
+    nouveauInput.appendChild(contenuCaracteristique);
+    suppCaracteristique.addEventListener("click",()=>{
+        nouveauInput.remove();
+    });
+};
+
+function creationObjet(){
+    let objetCaracteristiques = new Object();
+    for(i=0; i<=divCaracteristique.children.length-1; i++){
+        let objetCaracteristiqueSup = new Object();
+        objetCaracteristiqueSup["nom"] = divCaracteristique.children[i].children[1].value;
+        objetCaracteristiqueSup["contenu"] = divCaracteristique.children[i].children[2].value;
+        objetCaracteristiques[i] = objetCaracteristiqueSup;
+    };
+    return objetCaracteristiques;
+};
+
+plus.addEventListener("click", ()=>{
+    creationCaracteristique();
 });

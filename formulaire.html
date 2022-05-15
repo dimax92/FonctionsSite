@@ -7,10 +7,31 @@
         <meta name="robots" content="index, follow"/>
         <meta name="description" content="Vous souhaitez avoir une vitrine en ligne pour les produits que vous souhaitez vendre. Mais vous ne voulez pas dépensez des sommes astronomiques pour la création d'un site web ou alors payer des commissions faramineuses aux géants du e-commerce. Alors il vous suffit de remplir ce formulaire et c'est tout. Votre produit seras en ligne et vos clients n'auront qu'a vous contacter pour pouvoir profiter de vos super produits. Vous pouvez vendre ce que vous voulez, voiture, vêtements, logements, jeux videos, smartphones, ordinateurs, électroménager, pièces automobiles, cosmétiques et plein d'autres choses."/>
         <title>Mettez en ligne tous les produits que vous voulez</title>
+        <link rel="icon" type="image/png" href="Images/Logo.png" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
         <link rel="stylesheet" href="css/formulaire.css">
     </head>
     <body>
+        <div class="triangle">
+            <div class="droit premiereface">
+                <p>M</p>
+            </div>
+            <div class="droit deuxiemeface">
+                <p>A</p>
+            </div>
+            <div class="droit troisiemeface">
+                <p>V</p>
+            </div>
+            <div class="inverse premierefaceinverse">
+                <p>M</p>
+            </div>
+            <div class="inverse deuxiemefaceinverse">
+                <p>A</p>
+            </div>
+            <div class="inverse troisiemefaceinverse">
+                <p>V</p>
+            </div>
+        </div>
         <header>
             <img src="Images/Logo.png" alt="Logo du site">
             <nav>
@@ -18,6 +39,7 @@
                     <li><a href="inscription"><i class="fas fa-user-plus"></i> S'inscrire</a></li>
                     <li><a href="authentification"><i class="fas fa-user"></i> S'authentifier</a></li>
                     <li><a href="moteurderecherche"><i class="fas fa-search"></i> Rechercher</a></li>
+                    <li><a href="blogue"><i class="fas fa-solid fa-blog"></i> Blog</a></li>
                 </ul>
             </nav>
         </header>
@@ -36,6 +58,11 @@
                 <input name="inputdevise" class="inputFormulaire" id="inputdevise" type="text" required="required">
                 <label for='inputcaracteristique' class='labelcaracteristique'>Description du produit</label>
                 <textarea name="inputcaracteristique" id="inputcaracteristique" required="required"></textarea>
+                <div class="caracteristiques">
+                    <label>Details du produit</label>
+                    <i class="fas fa-solid fa-plus"></i>
+                </div>
+                <div class="divCaracteristique"></div>
                 <label for='inputquantite' class='labelquantite'>Quantité</label>
                 <input name="inputquantite" class="inputFormulaire" id="inputquantite" type="number" required="required">
                 <label for='inputcategorie' class='labelcategorie'>Type de produit(ordinateur, pantalon, ...)</label>
@@ -56,6 +83,7 @@
             <i class="fab fa-js-square"></i>
             <i class="fab fa-php"></i>
         </footer>
+        <script src="javascripts/loadingspinner.js"></script>
         <script src="javascripts/erreur.js"></script>
         <script src="javascripts/connexion.js"></script>
         <script src="javascripts/sitemap.js"></script>

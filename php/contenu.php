@@ -6,7 +6,7 @@ $connexion->options(MYSQLI_CLIENT_SSL, 'SET AUTOCOMMIT = 0');
 $connexion->real_connect($host,$username,$passwd,$dbname);
 $connexion->query("SET NAMES utf8mb4");
 
-$idproduit=mysqli_real_escape_string($connexion, $_POST["idproduit"]);
+$idproduit=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST["idproduit"]));
 
 
 
@@ -30,6 +30,7 @@ while($resultat=mysqli_fetch_object($requetesql)){
     $paramnomlieu=json_encode("nomlieu");
     $paramlattitude=json_encode("lattitude");
     $paramlongitude=json_encode("longitude");
+    $paramdetails=json_encode("details");
 
     $nom=json_encode($resultat->nom);
     $marque=json_encode($resultat->marque);
@@ -47,9 +48,10 @@ while($resultat=mysqli_fetch_object($requetesql)){
     $nomlieu=json_encode($resultat->nomlieu);
     $lattitude=json_encode($resultat->lattitude);
     $longitude=json_encode($resultat->longitude);
+    $details=htmlspecialchars_decode($resultat->details);
     echo " didi: { $paramnom: $nom, $parammarque: $marque, $paramvideo: $video, $paramvideonom: $videonom, $paramprix: $prix, $paramdevise: $devise, 
         $paramdescriptions: $descriptions, $paramquantite: $quantite, $paramtypes: $types, $paramconditions: $conditions, 
-        $paramcoordonnees: $coordonnees, $paramlikes: $likes, $paramdislikes: $dislikes, $paramnomlieu: $nomlieu, $paramlattitude: $lattitude, $paramlongitude: $longitude }";
+        $paramcoordonnees: $coordonnees, $paramlikes: $likes, $paramdislikes: $dislikes, $paramnomlieu: $nomlieu, $paramlattitude: $lattitude, $paramlongitude: $longitude, $paramdetails: $details }";
 }
 
 $connexion->close();

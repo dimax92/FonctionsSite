@@ -1,0 +1,44 @@
+.caracteristiques {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.listeCaracteristiques {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 5% 25% 70%;
+      grid-template-columns: 5% 25% 70%;
+}
+
+.suppCaracteristique {
+  color: red;
+  -webkit-transform: rotateZ(45deg);
+          transform: rotateZ(45deg);
+  height: 20px;
+  width: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table .tdNom {
+  width: 30%;
+  padding: 2px;
+  font-weight: bold;
+  border: solid 0.1px #00000024;
+}
+
+table .tdContenu {
+  width: 70%;
+  padding: 2px;
+  border: solid 0.1px #00000024;
+}
+/*# sourceMappingURL=caracteristiques.css.map */

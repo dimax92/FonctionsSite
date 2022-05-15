@@ -7,7 +7,7 @@ $connexion->real_connect($host,$username,$passwd,$dbname);
 $connexion->query("SET NAMES utf8mb4");
 
 if(testAuthentification($connexion)==="Authentification valide"){
-    $idproduit=mysqli_real_escape_string($connexion, $_POST["idproduit"]);
+    $idproduit=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST["idproduit"]));
 
     function suppressionFichier($nomFichierUpload, $connexion, $idproduit) {
         $requeteSuppression="SELECT * FROM produits WHERE '$idproduit'= idproduit ";

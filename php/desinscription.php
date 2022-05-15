@@ -7,7 +7,7 @@ $connexion->real_connect($host,$username,$passwd,$dbname);
 $connexion->query("SET NAMES utf8mb4");
 
 if(testAuthentification($connexion)==="Authentification valide"){
-    $authentifiant=mysqli_real_escape_string($connexion, $_COOKIE["authentifiant"]);
+    $authentifiant=htmlspecialchars(mysqli_real_escape_string($connexion, $_COOKIE["authentifiant"]));
 
     function recuperationIdentifiantUtilisateur($authentifiant, $connexion){
         $requeteIdentifiant="SELECT * FROM inscription WHERE authentification='$authentifiant'";
@@ -25,7 +25,7 @@ if(testAuthentification($connexion)==="Authentification valide"){
             return $resultatIdentifiant->pseudo;
         }
     };
-    $pseudo=mysqli_real_escape_string($connexion, recuperationPseudo($authentifiant, $connexion));
+    $pseudo=htmlspecialchars(mysqli_real_escape_string($connexion, recuperationPseudo($authentifiant, $connexion)));
 
     function recuperationProduits($identifiant, $connexion){
         $requeteIdentifiant="SELECT * FROM produits WHERE identifiant='$identifiant'";
@@ -52,7 +52,7 @@ if(testAuthentification($connexion)==="Authentification valide"){
     };
 
     function suppressionCommentairesIdProduit($idproduit, $connexion){
-        $idproduit=mysqli_real_escape_string($connexion, $idproduit);
+        $idproduit=htmlspecialchars(mysqli_real_escape_string($connexion, $idproduit));
         $requete="DELETE FROM commentaires WHERE idproduit='$idproduit'";
         $requetesql = $connexion->query("$requete");
         if($requetesql){
@@ -63,7 +63,7 @@ if(testAuthentification($connexion)==="Authentification valide"){
     };
 
     function suppressionLikesIdProduit($idproduit, $connexion){
-        $idproduit=mysqli_real_escape_string($connexion, $idproduit);
+        $idproduit=htmlspecialchars(mysqli_real_escape_string($connexion, $idproduit));
         $requete="DELETE FROM likes WHERE idproduit='$idproduit'";
         $requetesql = $connexion->query("$requete");
         if($requetesql){
@@ -74,7 +74,7 @@ if(testAuthentification($connexion)==="Authentification valide"){
     };
 
     function suppressionDislikesIdProduit($idproduit, $connexion){
-        $idproduit=mysqli_real_escape_string($connexion, $idproduit);
+        $idproduit=htmlspecialchars(mysqli_real_escape_string($connexion, $idproduit));
         $requete="DELETE FROM dislikes WHERE idproduit='$idproduit'";
         $requetesql = $connexion->query("$requete");
         if($requetesql){
@@ -125,7 +125,7 @@ if(testAuthentification($connexion)==="Authentification valide"){
     };
 
     function MiseJourDislikeProduit($idproduit, $connexion){
-        $idproduit=mysqli_real_escape_string($connexion, $idproduit);
+        $idproduit=htmlspecialchars(mysqli_real_escape_string($connexion, $idproduit));
         $requete=" UPDATE produits SET dislikes=dislikes-1 WHERE '$idproduit'= idproduit ";
         $requetesql = $connexion->query("$requete");
         if($requetesql){
@@ -134,7 +134,7 @@ if(testAuthentification($connexion)==="Authentification valide"){
     };
 
     function MiseJourLikeProduit($idproduit, $connexion){
-        $idproduit=mysqli_real_escape_string($connexion, $idproduit);
+        $idproduit=htmlspecialchars(mysqli_real_escape_string($connexion, $idproduit));
         $requete=" UPDATE produits SET likes=likes-1 WHERE '$idproduit'= idproduit ";
         $requetesql = $connexion->query("$requete");
         if($requetesql){
@@ -143,7 +143,7 @@ if(testAuthentification($connexion)==="Authentification valide"){
     };
 
     function suppressionFichier($idproduit, $connexion) {
-        $idproduit=mysqli_real_escape_string($connexion, $idproduit);
+        $idproduit=htmlspecialchars(mysqli_real_escape_string($connexion, $idproduit));
         $requeteSuppression="SELECT * FROM produits WHERE '$idproduit'= idproduit ";
         $requetesqlSuppression=$connexion->query("$requeteSuppression");
         while($resultat=mysqli_fetch_object($requetesqlSuppression)){

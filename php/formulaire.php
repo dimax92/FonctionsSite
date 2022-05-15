@@ -6,24 +6,31 @@ $connexion->options(MYSQLI_CLIENT_SSL, 'SET AUTOCOMMIT = 0');
 $connexion->real_connect($host,$username,$passwd,$dbname);
 $connexion->query("SET NAMES utf8mb4");
 
+function recuperationFinFichier($fichier){
+    $fichierExplode = explode(".", $fichier);
+    $fichierType = $fichierExplode[count($fichierExplode)-1];
+    return ".".$fichierType;
+};
+
 if(testAuthentification($connexion)==="Authentification valide"){
     $nomfichier=hash("sha256", uniqid());
-    $authentifiant=mysqli_real_escape_string($connexion, $_COOKIE["authentifiant"]);
+    $authentifiant=htmlspecialchars(mysqli_real_escape_string($connexion, $_COOKIE["authentifiant"]));
     $idproduit=hash("sha256", uniqid());
-    $nom=mysqli_real_escape_string($connexion, $_POST['inputnom']);
-    $marque=mysqli_real_escape_string($connexion, $_POST['inputmarque']);
-    $video=mysqli_real_escape_string($connexion, $nomfichier.$_FILES['inputimages']['name']);
-    $videonom=mysqli_real_escape_string($connexion, $_FILES['inputimages']['name']);
-    $prix=mysqli_real_escape_string($connexion, $_POST['inputprix']);
-    $devise=mysqli_real_escape_string($connexion, $_POST['inputdevise']);
-    $descriptions=mysqli_real_escape_string($connexion, $_POST['inputcaracteristique']);
-    $quantite=mysqli_real_escape_string($connexion, $_POST['inputquantite']);
-    $types=mysqli_real_escape_string($connexion, $_POST['inputcategorie']);
-    $conditions=mysqli_real_escape_string($connexion, $_POST['condition']);
-    $coordonnees=mysqli_real_escape_string($connexion, $_POST['coordonnees']);
-    $nomLieu=mysqli_real_escape_string($connexion, $_POST['nomlieu']);
-    $lattitude=mysqli_real_escape_string($connexion, $_POST['lattitude']);
-    $longitude=mysqli_real_escape_string($connexion, $_POST['longitude']);
+    $nom=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['inputnom']));
+    $marque=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['inputmarque']));
+    $video=htmlspecialchars(mysqli_real_escape_string($connexion, $nomfichier.recuperationFinFichier($_FILES['inputimages']['name'])));
+    $videonom=htmlspecialchars(mysqli_real_escape_string($connexion, $_FILES['inputimages']['name']));
+    $prix=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['inputprix']));
+    $devise=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['inputdevise']));
+    $descriptions=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['inputcaracteristique']));
+    $quantite=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['inputquantite']));
+    $types=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['inputcategorie']));
+    $conditions=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['condition']));
+    $coordonnees=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['coordonnees']));
+    $nomLieu=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['nomlieu']));
+    $lattitude=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['lattitude']));
+    $longitude=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['longitude']));
+    $details=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST['details']));
     
     $typeVideo=$_FILES['inputimages']['type'];
     $tailleVideo=$_FILES['inputimages']['size'];
@@ -193,13 +200,13 @@ if(testAuthentification($connexion)==="Authentification valide"){
         }
     };
     
-    function envoiDonneesFichiers($nomFichierUpload, $nomfichier, $connexion, $identifiant, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude){
-        $identifiante=mysqli_real_escape_string($connexion, $identifiant);
-        $requete="INSERT INTO produits(identifiant, idproduit, nom, marque, video, videonom, prix, devise, descriptions, quantite, types, conditions, coordonnees, likes, dislikes, nomlieu, lattitude, longitude) 
-        VALUES ('$identifiante', '$idproduit', '$nom', '$marque', '$video', '$videonom', '$prix', '$devise', '$descriptions', '$quantite', '$types', '$conditions', '$coordonnees', 0, 0, '$nomLieu', '$lattitude', '$longitude')";
+    function envoiDonneesFichiers($nomFichierUpload, $nomfichier, $connexion, $identifiant, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude, $details){
+        $identifiante=htmlspecialchars(mysqli_real_escape_string($connexion, $identifiant));
+        $requete="INSERT INTO produits(identifiant, idproduit, nom, marque, video, videonom, prix, devise, descriptions, quantite, types, conditions, coordonnees, likes, dislikes, nomlieu, lattitude, longitude, details) 
+        VALUES ('$identifiante', '$idproduit', '$nom', '$marque', '$video', '$videonom', '$prix', '$devise', '$descriptions', '$quantite', '$types', '$conditions', '$coordonnees', 0, 0, '$nomLieu', '$lattitude', '$longitude', '$details')";
         $requetesql = $connexion->query("$requete");
         if($requetesql){
-            $envoifichier=move_uploaded_file($_FILES['inputimages']['tmp_name'], $nomFichierUpload.$nomfichier.basename($_FILES['inputimages']['name']));
+            $envoifichier=move_uploaded_file($_FILES['inputimages']['tmp_name'], $nomFichierUpload.$nomfichier.basename(recuperationFinFichier($_FILES['inputimages']['name'])));
             if($envoifichier){
                 echo "Produit enregistre";
             }else{
@@ -224,11 +231,10 @@ if(testAuthentification($connexion)==="Authentification valide"){
     if(
         testDonnees($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu)==="conforme"
     ){
-        envoiDonneesFichiers($nomFichierUpload, $nomfichier, $connexion, $identifiant, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude);
+        envoiDonneesFichiers($nomFichierUpload, $nomfichier, $connexion, $identifiant, $idproduit, $nom, $marque, $video, $videonom, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu, $lattitude, $longitude, $details);
     }else{
         echo "echec";
         testDonneesIndividuelles($nom, $marque, $typeVideo, $tailleVideo, $prix, $devise, $descriptions, $quantite, $types, $conditions, $coordonnees, $nomLieu);
-        echo $nom;
     }
 }else{
     echo "Vous n'etes pas connecte";

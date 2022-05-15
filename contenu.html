@@ -6,6 +6,7 @@
         <meta name="robots" content="index, follow"/>
         <meta name="description" content="">
         <title>Nom du produit</title>
+        <link rel="icon" type="image/png" href="Images/Logo.png" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" integrity="sha512-oHDEc8Xed4hiW6CxD7qjbnI+B07vDdX7hEPTvn9pSZO1bcRqHp8mj9pyr+8RVC2GmtEfI2Bi9Ke9Ass0as+zpg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -17,6 +18,26 @@
         <link rel="stylesheet" href="css/contenu.css">
     </head>
     <body>
+        <div class="triangle">
+            <div class="droit premiereface">
+                <p>M</p>
+            </div>
+            <div class="droit deuxiemeface">
+                <p>A</p>
+            </div>
+            <div class="droit troisiemeface">
+                <p>V</p>
+            </div>
+            <div class="inverse premierefaceinverse">
+                <p>M</p>
+            </div>
+            <div class="inverse deuxiemefaceinverse">
+                <p>A</p>
+            </div>
+            <div class="inverse troisiemefaceinverse">
+                <p>V</p>
+            </div>
+        </div>
         <header>
             <img src="Images/Logo.png" alt="Logo du site">
             <nav>
@@ -24,6 +45,7 @@
                     <li><a href="inscription"><i class="fas fa-user-plus"></i> S'inscrire</a></li>
                     <li><a href="authentification"><i class="fas fa-user"></i> S'authentifier</a></li>
                     <li><a href="moteurderecherche"><i class="fas fa-search"></i> Rechercher</a></li>
+                    <li><a href="blogue"><i class="fas fa-solid fa-blog"></i> Blog</a></li>
                 </ul>
             </nav>
         </header>
@@ -34,10 +56,15 @@
                 <p class='contenu pmarque'>jbkrbmrk</p>
                 <h2 class="hVideo">Video</h2>
                 <div class='divVideo'>
-                    <video id='imageproduit' src='Videos/VID_20210605_202606.mp4'></video>
+                    <video id='imageproduit' src='zigoto.mp4.mp4'></video>
                     <div class='controles'>
                         <i class='boutonPlay fas fa-play'></i>
-                        <label for="inputrange" class="labelrange">Controles Videos</label>
+                        <div class="divVolume">
+                            <i class="boutonVolume fas fa-volume-up"></i>
+                            <input class="inputRangeVolume" type="range"/>
+                            <div class="cacheVolume"></div>
+                        </div>
+                        <i class="boutonGrandEcran fas fa-expand"></i>
                         <p class="temps"></p>
                         <input class='inputRange' id="inputrange" type='range'/>
                         <p class='temps'></p>
@@ -47,6 +74,16 @@
                 <p class='contenu pPrix'>knrkmr vrjvr vjnrv rjvnr vjrjnjvjv jv vjnvj vjnvnnjrr r vrvnv rvjrv vv rjvn vrjv vrvn</p>
                 <h2 class="hDescription">Description du produit</h2>
                 <p class='contenu pDescription'>rnjnbjkf</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="2">
+                                <h2>Caracteristiques</h2>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
                 <h2 class="hQuantite">Quantite</h2>
                 <p class='contenu pQuantite'>gjnkrngrk</p>
                 <h2 class="hCategorie">Categorie</h2>
@@ -86,6 +123,7 @@
             <i class="fab fa-js-square"></i>
             <i class="fab fa-php"></i>
         </footer>
+        <script src="javascripts/loadingspinner.js"></script>
         <script src="javascripts/erreur.js"></script>
         <script src="javascripts/connexion.js"></script>
         <script src="javascripts/contenu.js"></script>

@@ -1,5 +1,5 @@
 function mauvaisNomDeDomaine(){
-    if(location.host !== "machatvente.com"){
+    if(location.host !== "machatvente.com" && location.host !== "www.machatvente.com"){
         document.querySelector("html").remove();
     }
 };

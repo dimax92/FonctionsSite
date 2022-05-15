@@ -7,8 +7,8 @@ $connexion->real_connect($host,$username,$passwd,$dbname);
 $connexion->query("SET NAMES utf8mb4");
 
 if(testAuthentification($connexion)==="Authentification valide"){
-    $authentifiant=mysqli_real_escape_string($connexion, $_COOKIE["authentifiant"]);
-    $idproduit=mysqli_real_escape_string($connexion, $_POST["idproduit"]);
+    $authentifiant=htmlspecialchars(mysqli_real_escape_string($connexion, $_COOKIE["authentifiant"]));
+    $idproduit=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST["idproduit"]));
     
     function recuperationidentifiantProduit($idproduit, $connexion){
         $requeteIdentifiant="SELECT * FROM produits WHERE idproduit='$idproduit'";
@@ -25,7 +25,7 @@ if(testAuthentification($connexion)==="Authentification valide"){
             return $resultatIdentifiant->identifiant;
         }
     };
-    $identifiant=mysqli_real_escape_string($connexion, recuperationIdentifiantUtilisateur($authentifiant, $connexion));
+    $identifiant=htmlspecialchars(mysqli_real_escape_string($connexion, recuperationIdentifiantUtilisateur($authentifiant, $connexion)));
 
     function recuperationLikes($identifiant, $connexion, $idproduit){
         $compteur=0;

@@ -7,9 +7,9 @@ $connexion->real_connect($host,$username,$passwd,$dbname);
 $connexion->query("SET NAMES utf8mb4");
 
 if(testAuthentification($connexion)==="Authentification valide"){
-    $authentifiant=mysqli_real_escape_string($connexion, $_COOKIE["authentifiant"]);
-    $idproduit=mysqli_real_escape_string($connexion, $_POST["idproduit"]);
-    $commentaire=mysqli_real_escape_string($connexion, $_POST["commentaire"]);
+    $authentifiant=htmlspecialchars(mysqli_real_escape_string($connexion, $_COOKIE["authentifiant"]));
+    $idproduit=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST["idproduit"]));
+    $commentaire=htmlspecialchars(mysqli_real_escape_string($connexion, $_POST["commentaire"]));
     
     function recuperationidentifiantProduit($idproduit, $connexion){
         $requeteIdentifiant="SELECT * FROM produits WHERE idproduit='$idproduit'";
@@ -34,7 +34,7 @@ if(testAuthentification($connexion)==="Authentification valide"){
             return $resultatIdentifiant->pseudo;
         }
     };
-    $pseudo=mysqli_real_escape_string($connexion, recuperationPseudo($authentifiant, $connexion));
+    $pseudo=htmlspecialchars(mysqli_real_escape_string($connexion, recuperationPseudo($authentifiant, $connexion)));
     
     function recuperationNbCommentaires($authentifiant, $connexion){
         $requeteIdentifiant="SELECT * FROM inscription WHERE authentification='$authentifiant'";
